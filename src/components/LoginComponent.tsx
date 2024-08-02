@@ -19,7 +19,7 @@ export default function LoginComponent() {
           </svg>
 
           <h2 className="card-title">Iniciar sesion</h2>
-          <label className="input input-bordered flex items-center gap-2">
+          <label className="input input-bordered flex items-center gap-2 hover:border-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
@@ -31,7 +31,7 @@ export default function LoginComponent() {
             </svg>
             <input type="text" className="grow" placeholder="Email" />
           </label>
-          <label className="input input-bordered flex items-center gap-2">
+          <label className="input input-bordered flex items-center gap-2 hover:border-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
