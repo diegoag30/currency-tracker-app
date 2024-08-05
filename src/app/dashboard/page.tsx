@@ -1,6 +1,6 @@
 "use client";
 import CurrencyTable from "@/components/CurrencyTable";
-import CurrencytableSkeleton from "@/components/CurrencyTableSkeleton";
+import CurrencyTableSkeleton from "@/components/CurrencyTableSkeleton";
 import useSWR from "swr";
 import { fetcher } from "../api/fetcher";
 import { Currency } from "../types/currency";
@@ -13,7 +13,7 @@ export default function Page() {
       {error ? (
         <div>Failed to load</div>
       ) : !data ? (
-        <CurrencytableSkeleton />
+        <CurrencyTableSkeleton />
       ) : (
         <CurrencyTable currencies={data} />
       )}

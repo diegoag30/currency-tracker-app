@@ -1,4 +1,6 @@
-const CurrencytableSkeleton: React.FC = () => {
+import { MAX_ITEMS_PER_PAGE } from "@/config/constants";
+
+const CurrencyTableSkeleton: React.FC = () => {
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -10,7 +12,7 @@ const CurrencytableSkeleton: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {Array.from({ length: 7 }).map((_, index) => (
+          {Array.from({ length: MAX_ITEMS_PER_PAGE }).map((_, index) => (
             <tr className="skeleton w-1/3" key={index}>
               <td className="text-transparent">LOADING </td>
               <td className="text-transparent">LOADING </td>
@@ -23,4 +25,4 @@ const CurrencytableSkeleton: React.FC = () => {
   );
 };
 
-export default CurrencytableSkeleton;
+export default CurrencyTableSkeleton;

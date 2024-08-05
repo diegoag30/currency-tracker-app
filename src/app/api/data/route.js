@@ -1,5 +1,4 @@
-// pages/api/data.js
-const base_url = "https://pro-api.coinmarketcap.com";
+import { API_BASE_URL } from "@/config/constants";
 
 export async function GET(req) {
   try {
@@ -8,7 +7,7 @@ export async function GET(req) {
       throw new Error("API_KEY is not set in environment variables");
     }
     const response = await fetch(
-      `${base_url}/v1/fiat/map?start=1&limit=7&sort=id&CMC_PRO_API_KEY=${apiKey}`
+      `${API_BASE_URL}/v1/fiat/map?start=1&limit=7&sort=id&CMC_PRO_API_KEY=${apiKey}`
     );
 
     if (!response.ok) {
