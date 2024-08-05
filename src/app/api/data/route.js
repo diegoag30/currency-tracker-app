@@ -8,7 +8,7 @@ export async function GET(req) {
       throw new Error("API_KEY is not set in environment variables");
     }
     const response = await fetch(
-      `${base_url}/v1/fiat/map?start=1&limit=5&sort=id&CMC_PRO_API_KEY=${apiKey}`
+      `${base_url}/v1/fiat/map?start=1&limit=7&sort=id&CMC_PRO_API_KEY=${apiKey}`
     );
 
     if (!response.ok) {
