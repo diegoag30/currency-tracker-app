@@ -1,8 +1,8 @@
 "use client";
 import {
+  CurrencyDollarIcon,
   DocumentDuplicateIcon,
   HomeIcon,
-  UserGroupIcon,
 } from "@heroicons/react/24/outline";
 
 import clsx from "clsx";
@@ -20,9 +20,9 @@ const links = [
   },
   {
     id: 3,
-    name: "Customers",
-    href: "/dashboard/customers",
-    icon: UserGroupIcon,
+    name: "Currencies",
+    href: "/dashboard/currencies",
+    icon: CurrencyDollarIcon,
   },
 ];
 
