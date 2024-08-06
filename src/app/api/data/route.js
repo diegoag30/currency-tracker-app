@@ -2,12 +2,13 @@ import { API_BASE_URL } from "@/config/constants";
 
 export async function GET(req) {
   try {
+    const subpath = req.nextUrl.searchParams.get("subpath");
     const apiKey = process.env.API_KEY; // Make sure to set this in your environment variables
     if (!apiKey) {
       throw new Error("API_KEY is not set in environment variables");
     }
     const response = await fetch(
-      `${API_BASE_URL}/v1/fiat/map?start=1&limit=7&sort=id&CMC_PRO_API_KEY=${apiKey}`
+      `${API_BASE_URL}${subpath}?start=1&limit=7&sort=id&CMC_PRO_API_KEY=${apiKey}`
     );
 
     if (!response.ok) {

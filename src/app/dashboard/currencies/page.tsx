@@ -6,7 +6,11 @@ import CurrencyTableSkeleton from "@/components/CurrencyTableSkeleton";
 import useSWR from "swr";
 
 export default function Page() {
-  const { data, error } = useSWR<Currency[]>("/api/data", fetcher);
+  const subpath = "/v1/fiat/map";
+  const { data, error } = useSWR<Currency[]>(
+    `/api/data?subpath=${encodeURIComponent(subpath)}`,
+    fetcher
+  );
   return (
     <main>
       <h1>Hello from Currencies</h1>
