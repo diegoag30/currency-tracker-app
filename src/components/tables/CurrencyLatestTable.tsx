@@ -1,7 +1,11 @@
 // src/components/Table.tsx
 import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
+import {
+  formatDate,
+  formatPrice,
+  formatVolumeChange,
+} from "@/utils/formatters";
 import React from "react";
-
 interface LatestTableProps {
   currencies: CurrencyLatestInfo[];
 }
@@ -15,9 +19,9 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({ currencies }) => {
             <th>Name</th>
             <th>Symbol</th>
             <th>Price</th>
-            <th>Volume 24h</th>
+            <th>Volume Change 24h</th>
             <th>Market Cap</th>
-            <th>Total Supply</th>
+            <th>Last Updated</th>
           </tr>
         </thead>
         <tbody>
@@ -25,10 +29,16 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({ currencies }) => {
             <tr className="hover" key={currency.id}>
               <td>{currency.name}</td>
               <td>{currency.symbol}</td>
-              <td>{currency.price}</td>
-              <td>{currency.volume_24h}</td>
-              <td>{currency.market_cap}</td>
-              <td>{currency.total_supply}</td>
+              <td>{formatPrice(currency.price)}</td>
+              <td
+                className={
+                  currency.volume_change_24h < 0 ? "text-error" : "text-success"
+                }
+              >
+                {formatVolumeChange(currency.volume_change_24h)}
+              </td>
+              <td>{formatPrice(currency.market_cap)}</td>
+              <td>{formatDate(currency.last_updated)}</td>
             </tr>
           ))}
         </tbody>

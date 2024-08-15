@@ -37,7 +37,7 @@ export const transformCurrencyData = (json: any): CurrencyLatestInfo[] => {
       market_cap: item.quote.USD.market_cap,
       circulating_supply: item.circulating_supply,
       total_supply: item.total_supply,
-      last_updated: item.quote.USD.timestamp,
+      last_updated: item.quote.USD.last_updated,
     };
   });
 };
