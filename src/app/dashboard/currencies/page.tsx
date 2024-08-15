@@ -1,8 +1,8 @@
 "use client";
 import { fetcher } from "@/app/api/fetcher";
 import { Currency } from "@/app/types/currency";
-import CurrencyTable from "@/components/CurrencyTable";
 import CurrencyTableSkeleton from "@/components/CurrencyTableSkeleton";
+import CurrencyTable from "@/components/tables/CurrencyTable";
 import useSWR from "swr";
 
 export default function Page() {
