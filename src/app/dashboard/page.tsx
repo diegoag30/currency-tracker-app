@@ -3,7 +3,9 @@ import {
   fetchAndTransformData,
   transformCurrencyData,
 } from "@/app/api/fetcher";
+import Search from "@/components/search";
 import CurrencyLatestTable from "@/components/tables/CurrencyLatestTable";
+import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import { CurrencyLatestInfo } from "../types/currencyLatestInfo";
 
@@ -16,24 +18,24 @@ export default function Page() {
     `/api/data?subpath=${encodeURIComponent(subpath)}`,
     fetcher
   );
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query")?.toLowerCase() || "";
+
+  const filteredData = (data ?? []).filter(
+    (currency) =>
+      currency.name.toLowerCase().includes(query) ||
+      currency.symbol.toLowerCase().includes(query)
+  );
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
   return (
     <main>
-      <h1>Hello from Dashboard</h1>
-      <div role="tablist" className="tabs tabs-boxed">
-        <a role="tab" className="tab">
-          Price
-        </a>
-        <a role="tab" className="tab tab-active">
-          Market Cap
-        </a>
-        <a role="tab" className="tab">
-          Volume 24h
-        </a>
+      <div className="prose">
+        <h1>Currencies Updates</h1>
       </div>
-      <CurrencyLatestTable currencies={data} />
+      <Search />
+      <CurrencyLatestTable currencies={filteredData} />
     </main>
   );
 }

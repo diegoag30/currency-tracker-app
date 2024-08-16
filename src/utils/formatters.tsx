@@ -17,7 +17,7 @@ export const formatVolumeChange = (value: number) => (
     displayType={"text"}
     decimalScale={2}
     suffix={"%"}
-    prefix={value < 0 ? "-" : "+"}
+    // prefix={value > 0 ? "-" : "+"}
   />
 );
 
