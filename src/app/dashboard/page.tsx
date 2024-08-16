@@ -3,7 +3,9 @@ import {
   fetchAndTransformData,
   transformCurrencyData,
 } from "@/app/api/fetcher";
-import Search from "@/components/search";
+import SortButton from "@/components/buttons/SortButton";
+import SortOptionButton from "@/components/buttons/SortOptionButton";
+import Search from "@/components/Search";
 import CurrencyLatestTable from "@/components/tables/CurrencyLatestTable";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
@@ -34,7 +36,13 @@ export default function Page() {
       <div className="prose">
         <h1>Currencies Updates</h1>
       </div>
-      <Search />
+      <div className="flex items-center space-x-2">
+        <div className="flex-1">
+          <Search />
+        </div>
+        <SortOptionButton />
+        <SortButton />
+      </div>
       <CurrencyLatestTable currencies={filteredData} />
     </main>
   );
