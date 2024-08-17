@@ -8,9 +8,20 @@ import {
 import React from "react";
 interface LatestTableProps {
   currencies: CurrencyLatestInfo[];
+  sortOption: keyof CurrencyLatestInfo;
+  isAscending: boolean;
 }
 
-const CurrencyLatestTable: React.FC<LatestTableProps> = ({ currencies }) => {
+const CurrencyLatestTable: React.FC<LatestTableProps> = ({
+  currencies,
+  sortOption,
+  isAscending,
+}: LatestTableProps) => {
+  const sortedCurrencies = [...currencies].sort((a, b) => {
+    if (a[sortOption] < b[sortOption]) return isAscending ? -1 : 1;
+    if (a[sortOption] > b[sortOption]) return isAscending ? 1 : -1;
+    return 0;
+  });
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -25,7 +36,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({ currencies }) => {
           </tr>
         </thead>
         <tbody>
-          {currencies.map((currency) => (
+          {sortedCurrencies.map((currency) => (
             <tr className="hover" key={currency.id}>
               <td>{currency.name}</td>
               <td>{currency.symbol}</td>

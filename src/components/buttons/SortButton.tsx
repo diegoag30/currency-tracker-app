@@ -7,6 +7,7 @@ interface SortButtonProps {
   isAscending: boolean;
   setIsAscending: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 export default function SortButton({
   isAscending,
   setIsAscending,

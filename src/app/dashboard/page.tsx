@@ -14,6 +14,8 @@ import { CurrencyLatestInfo } from "../types/currencyLatestInfo";
 
 export default function Page() {
   const [isAscending, setIsAscending] = useState(true);
+  const [sortOption, setSortOption] =
+    useState<keyof CurrencyLatestInfo>("price");
   const fetcher = (url: string) =>
     fetchAndTransformData(url, transformCurrencyData);
 
@@ -42,10 +44,14 @@ export default function Page() {
         <div className="flex-1">
           <Search />
         </div>
-        <SortOptionButton />
+        <SortOptionButton setSortOption={setSortOption} />
         <SortButton isAscending={isAscending} setIsAscending={setIsAscending} />
       </div>
-      <CurrencyLatestTable currencies={filteredData} />
+      <CurrencyLatestTable
+        currencies={filteredData}
+        sortOption={sortOption}
+        isAscending={isAscending}
+      />
     </main>
   );
 }

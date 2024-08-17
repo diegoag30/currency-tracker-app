@@ -1,6 +1,12 @@
+import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/outline";
+interface SortOptionButtonProps {
+  setSortOption: (option: keyof CurrencyLatestInfo) => void;
+}
 
-export default function SortOptionButton() {
+export default function SortOptionButton({
+  setSortOption,
+}: SortOptionButtonProps) {
   return (
     <>
       <div className="dropdown dropdown-bottom dropdown-end">
@@ -12,10 +18,12 @@ export default function SortOptionButton() {
           className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
         >
           <li>
-            <a>Price</a>
+            <a onClick={() => setSortOption("price")}>Price</a>
           </li>
           <li>
-            <a>Volume Change</a>
+            <a onClick={() => setSortOption("volume_change_24h")}>
+              Volume Change
+            </a>
           </li>
         </ul>
       </div>
