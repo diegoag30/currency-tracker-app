@@ -3,7 +3,7 @@ import { Bars3BottomLeftIcon } from "@heroicons/react/24/outline";
 export default function SortOptionButton() {
   return (
     <>
-      <div className="dropdown dropdown-bottom">
+      <div className="dropdown dropdown-bottom dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-square m-1">
           <Bars3BottomLeftIcon className="w-full aspect-square max-w-[40px]" />
         </div>

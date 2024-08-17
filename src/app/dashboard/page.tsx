@@ -8,10 +8,12 @@ import SortOptionButton from "@/components/buttons/SortOptionButton";
 import Search from "@/components/Search";
 import CurrencyLatestTable from "@/components/tables/CurrencyLatestTable";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import useSWR from "swr";
 import { CurrencyLatestInfo } from "../types/currencyLatestInfo";
 
 export default function Page() {
+  const [isAscending, setIsAscending] = useState(true);
   const fetcher = (url: string) =>
     fetchAndTransformData(url, transformCurrencyData);
 
@@ -41,7 +43,7 @@ export default function Page() {
           <Search />
         </div>
         <SortOptionButton />
-        <SortButton />
+        <SortButton isAscending={isAscending} setIsAscending={setIsAscending} />
       </div>
       <CurrencyLatestTable currencies={filteredData} />
     </main>
