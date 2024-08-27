@@ -5,6 +5,10 @@ import {
   formatPrice,
   formatVolumeChange,
 } from "@/utils/formatters";
+import {
+  ChevronDoubleDownIcon,
+  ChevronDoubleUpIcon,
+} from "@heroicons/react/24/outline";
 import React from "react";
 interface LatestTableProps {
   currencies: CurrencyLatestInfo[];
@@ -22,17 +26,34 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
     if (a[sortOption] > b[sortOption]) return isAscending ? 1 : -1;
     return 0;
   });
+  const columns = [
+    { label: "Name", value: "name" },
+    { label: "Symbol", value: "symbol" },
+    { label: "Price", value: "price" },
+    { label: "Volume Change 24h", value: "volume_change_24h" },
+    { label: "Market Cap", value: "market_cap" },
+    { label: "Last Updated", value: "last_updated" },
+    // Add other columns as needed
+  ];
   return (
     <div className="overflow-x-auto">
       <table className="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Symbol</th>
-            <th>Price</th>
-            <th>Volume Change 24h</th>
-            <th>Market Cap</th>
-            <th>Last Updated</th>
+            {columns.map((column) => (
+              <th key={column.value}>
+                {column.label}
+                {sortOption === column.value && (
+                  <>
+                    {isAscending ? (
+                      <ChevronDoubleUpIcon className="inline-block w-4 h-4 ml-1 text-secondary" />
+                    ) : (
+                      <ChevronDoubleDownIcon className="inline-block w-4 h-4 ml-1 text-secondary" />
+                    )}
+                  </>
+                )}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>

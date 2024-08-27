@@ -9,7 +9,7 @@ export default function SortOptionButton({
 }: SortOptionButtonProps) {
   return (
     <>
-      <div className="dropdown dropdown-bottom dropdown-end">
+      <div className="dropdown dropdown-hover dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-square m-1">
           <Bars3BottomLeftIcon className="w-full aspect-square max-w-[40px]" />
         </div>
