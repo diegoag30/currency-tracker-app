@@ -1,4 +1,6 @@
 // src/components/Table.tsx
+"use client";
+
 import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
 import {
   formatDate,
@@ -9,6 +11,7 @@ import {
   ChevronDoubleDownIcon,
   ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 import React from "react";
 interface LatestTableProps {
   currencies: CurrencyLatestInfo[];
@@ -35,6 +38,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
     { label: "Last Updated", value: "last_updated" },
     // Add other columns as needed
   ];
+  const router = useRouter();
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -58,7 +62,11 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
         </thead>
         <tbody>
           {sortedCurrencies.map((currency) => (
-            <tr className="hover" key={currency.id}>
+            <tr
+              className="cursor-pointer hover"
+              key={currency.id}
+              onClick={() => router.push(`/dashboard/${currency.id}`)}
+            >
               <td>{currency.name}</td>
               <td>{currency.symbol}</td>
               <td>{formatPrice(currency.price)}</td>
