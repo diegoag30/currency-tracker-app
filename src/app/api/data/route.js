@@ -1,26 +1,18 @@
 import { API_BASE_URL } from "@/config/constants";
+import { extractSubpathAndQuery } from "@/utils/handleUrl";
 
 export async function GET(req) {
   try {
-    const url = new URL(req.nextUrl);
-    const subpath = url.searchParams.get("subpath");
-    const apiKey = process.env.API_KEY; // Make sure to set this in your environment variables
-    // Remove 'subpath' from searchParams
-    url.searchParams.delete("subpath");
+    const { subpath, queryString } = extractSubpathAndQuery(req.nextUrl);
 
-    // Create a query string from the remaining search parameters
-    const queryString = url.searchParams.toString();
-    //console.log(req.nextUrl.searchParams);
+    const apiKey = process.env.API_KEY;
+
     const full_url = `${API_BASE_URL}${subpath}?${queryString}&CMC_PRO_API_KEY=${apiKey}`;
 
-    console.log(full_url);
     if (!apiKey) {
       throw new Error("API_KEY is not set in environment variables");
     }
-    const response = await fetch(
-      // `${API_BASE_URL}${subpath}?start=1&limit=7&sort=id&CMC_PRO_API_KEY=${apiKey}`
-      full_url
-    );
+    const response = await fetch(full_url);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data: ${response.statusText}`);
