@@ -7,6 +7,7 @@ import SortButton from "@/components/buttons/SortButton";
 import SortOptionButton from "@/components/buttons/SortOptionButton";
 import Search from "@/components/Search";
 import CurrencyLatestTable from "@/components/tables/CurrencyLatestTable";
+import { MAX_ITEMS_PER_PAGE } from "@/config/constants";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import useSWR from "swr";
@@ -19,9 +20,13 @@ export default function Page() {
   const fetcher = (url: string) =>
     fetchAndTransformData(url, transformCurrencyData);
 
-  const subpath = "/v1/cryptocurrency/listings/latest";
+  const params = {
+    subpath: "/v1/cryptocurrency/listings/latest",
+    limit: MAX_ITEMS_PER_PAGE.toString(),
+  };
+  const queryString = new URLSearchParams(params).toString();
   const { data, error } = useSWR<CurrencyLatestInfo[]>(
-    `/api/data?subpath=${encodeURIComponent(subpath)}`,
+    `/api/data?${queryString}`,
     fetcher
   );
   const searchParams = useSearchParams();

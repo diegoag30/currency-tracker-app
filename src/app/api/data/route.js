@@ -2,9 +2,18 @@ import { API_BASE_URL } from "@/config/constants";
 
 export async function GET(req) {
   try {
-    const subpath = req.nextUrl.searchParams.get("subpath");
+    const url = new URL(req.nextUrl);
+    const subpath = url.searchParams.get("subpath");
     const apiKey = process.env.API_KEY; // Make sure to set this in your environment variables
-    const full_url = `${API_BASE_URL}${subpath}?limit=7&CMC_PRO_API_KEY=${apiKey}`;
+    // Remove 'subpath' from searchParams
+    url.searchParams.delete("subpath");
+
+    // Create a query string from the remaining search parameters
+    const queryString = url.searchParams.toString();
+    //console.log(req.nextUrl.searchParams);
+    const full_url = `${API_BASE_URL}${subpath}?${queryString}&CMC_PRO_API_KEY=${apiKey}`;
+
+    console.log(full_url);
     if (!apiKey) {
       throw new Error("API_KEY is not set in environment variables");
     }
