@@ -1,4 +1,5 @@
 import { CurrencyLatestInfo } from "../types/currencyLatestInfo";
+import { Metadata } from "../types/metadata";
 // Generic fetch and transform function
 export const fetchAndTransformData = async <T>(
   url: string,
@@ -38,6 +39,21 @@ export const transformCurrencyData = (json: any): CurrencyLatestInfo[] => {
       circulating_supply: item.circulating_supply,
       total_supply: item.total_supply,
       last_updated: item.quote.USD.last_updated,
+    };
+  });
+};
+
+export const transformMetaData = (json: any): Metadata[] => {
+  const data = json.data;
+  return Object.keys(data).map((key) => {
+    const item = data[key];
+    return {
+      id: item.id,
+      name: item.name,
+      symbol: item.symbol,
+      slug: item.slug,
+      logo: item.logo,
+      description: item.description,
     };
   });
 };
