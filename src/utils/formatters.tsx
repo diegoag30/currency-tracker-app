@@ -1,12 +1,34 @@
 import { format } from "date-fns";
 import { NumericFormat } from "react-number-format";
 // Formatters
+const abbreviateNumber = (value: number) => {
+  if (value >= 1e12) return (value / 1e12).toFixed(1) + "T";
+  if (value >= 1e9) return (value / 1e9).toFixed(1) + "B";
+  if (value >= 1e6) return (value / 1e6).toFixed(1) + "M";
+  if (value >= 1e3) return (value / 1e3).toFixed(1) + "K";
+  return value.toString();
+};
+
+export const AbbreviatedNumberFormat = (value: number) => {
+  const formattedValue = abbreviateNumber(value);
+  return <span>{formattedValue}</span>;
+};
+
 export const formatPrice = (value: number) => (
   <NumericFormat
     value={value || 0}
     displayType={"text"}
     thousandSeparator={true}
     prefix={"$"}
+    decimalScale={2}
+  />
+);
+
+export const formatNumber = (value: number) => (
+  <NumericFormat
+    value={value || 0}
+    displayType={"text"}
+    thousandSeparator={true}
     decimalScale={2}
   />
 );
