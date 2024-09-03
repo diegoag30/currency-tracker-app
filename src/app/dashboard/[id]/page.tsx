@@ -6,7 +6,7 @@ import {
 } from "@/app/api/fetcher";
 import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
 import { Metadata } from "@/app/types/metadata";
-// import CurrencyCard from "@/components/CurrencyCard";
+import CurrencyCard from "@/components/CurrencyCard";
 import CurrencyStats from "@/components/CurrencyStats";
 import useSWR from "swr";
 
@@ -49,7 +49,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      {/* <CurrencyCard metadata={metaData} /> */}
+      <CurrencyCard metadata={metaData} />
       <CurrencyStats CurrencyLatestInfo={currencyData} />
     </>
   );
