@@ -9,14 +9,7 @@ const CurrencyCard: React.FC<TableProps> = ({ metadata = [] }) => {
   }
   const CurrencyMetadata = metadata[0];
   return (
-    <div className="card card-compact bg-base-100 w-full shadow-xl p-2">
-      {/* <figure>
-        <img
-          className="mask mask-circle"
-          src={CurrencyMetadata.logo}
-          alt="Logo"
-        />
-      </figure> */}
+    <div className="card card-compact bg-neutral text-neutral-content w-full shadow-xl p-2">
       <div className="flex items-center p-2">
         <div className="avatar mr-4">
           <div className="w-10 rounded-full">

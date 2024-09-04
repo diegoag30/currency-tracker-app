@@ -23,7 +23,7 @@ const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [] }) => {
       </div>
 
       <div className="stat">
-        <div className="stat-title">Volume 24h</div>
+        <div className="stat-title">24h Volume Change</div>
         <div className="stat-value">
           {formatVolumeChange(currencyLatestInfo.volume_change_24h)}
         </div>
@@ -34,6 +34,27 @@ const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [] }) => {
         <div className="stat-title">Circulating supply</div>
         <div className="stat-value">
           {AbbreviatedNumberFormat(currencyLatestInfo.circulating_supply)}
+        </div>
+        <div className="stat-desc">↘︎ 90 (14%)</div>
+      </div>
+      <div className="stat">
+        <div className="stat-title">24 hours % change</div>
+        <div className="stat-value">
+          {formatVolumeChange(currencyLatestInfo.percent_change_24h)}
+        </div>
+        <div className="stat-desc">↘︎ 90 (14%)</div>
+      </div>
+      <div className="stat">
+        <div className="stat-title">7 days % change</div>
+        <div className="stat-value">
+          {formatVolumeChange(currencyLatestInfo.percent_change_7d)}
+        </div>
+        <div className="stat-desc">↘︎ 90 (14%)</div>
+      </div>
+      <div className="stat">
+        <div className="stat-title">30 days % change</div>
+        <div className="stat-value">
+          {formatVolumeChange(currencyLatestInfo.percent_change_30d)}
         </div>
         <div className="stat-desc">↘︎ 90 (14%)</div>
       </div>
