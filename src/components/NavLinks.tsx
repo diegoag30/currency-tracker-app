@@ -1,5 +1,6 @@
 "use client";
 import {
+  ArrowsRightLeftIcon,
   CurrencyDollarIcon,
   DocumentDuplicateIcon,
   HomeIcon,
@@ -17,6 +18,12 @@ const links = [
     name: "Invoices",
     href: "/dashboard/invoices",
     icon: DocumentDuplicateIcon,
+  },
+  {
+    id: 2,
+    name: "Converter",
+    href: "/dashboard/converter",
+    icon: ArrowsRightLeftIcon,
   },
   {
     id: 3,

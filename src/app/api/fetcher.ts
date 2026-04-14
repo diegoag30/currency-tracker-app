@@ -1,3 +1,4 @@
+import { ConversionResult } from "../types/conversionResult";
 import { CurrencyLatestInfo } from "../types/currencyLatestInfo";
 import { Metadata } from "../types/metadata";
 // Generic fetch and transform function
@@ -44,6 +45,21 @@ export const transformCurrencyData = (json: any): CurrencyLatestInfo[] => {
       last_updated: item.quote.USD.last_updated,
     };
   });
+};
+
+
+export const transformConversionData = (json: any, convertTo: string): ConversionResult => {
+  const item = json.data;
+  const key = convertTo.toUpperCase();
+  return {
+    id: item.id,
+    name: item.name,
+    symbol: item.symbol,
+    amount: item.amount,
+    convertedAmount: item.quote[key].price,
+    convertTo: key,
+    last_updated: item.quote[key].last_updated,
+  };
 };
 
 export const transformMetaData = (json: any): Metadata[] => {
