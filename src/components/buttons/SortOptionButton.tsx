@@ -21,9 +21,25 @@ export default function SortOptionButton({
             <a onClick={() => setSortOption("price")}>Price</a>
           </li>
           <li>
-            <a onClick={() => setSortOption("volume_change_24h")}>
-              Volume Change
-            </a>
+            <a onClick={() => setSortOption("volume_24h")}>Volume 24h</a>
+          </li>
+          <li>
+            <a onClick={() => setSortOption("volume_change_24h")}>Volume Change 24h</a>
+          </li>
+          <li>
+            <a onClick={() => setSortOption("percent_change_24h")}>Change 24h</a>
+          </li>
+          <li>
+            <a onClick={() => setSortOption("percent_change_7d")}>Change 7d</a>
+          </li>
+          <li>
+            <a onClick={() => setSortOption("percent_change_30d")}>Change 30d</a>
+          </li>
+          <li>
+            <a onClick={() => setSortOption("market_cap")}>Market Cap</a>
+          </li>
+          <li>
+            <a onClick={() => setSortOption("circulating_supply")}>Circulating Supply</a>
           </li>
         </ul>
       </div>

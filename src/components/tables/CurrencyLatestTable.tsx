@@ -2,11 +2,7 @@
 "use client";
 
 import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
-import {
-  formatDate,
-  formatPrice,
-  formatVolumeChange,
-} from "@/utils/formatters";
+import { AbbreviatedNumberFormat, formatDate, formatPrice, formatVolumeChange } from "@/utils/formatters";
 import {
   ChevronDoubleDownIcon,
   ChevronDoubleUpIcon,
@@ -33,10 +29,15 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
     { label: "Name", value: "name" },
     { label: "Symbol", value: "symbol" },
     { label: "Price", value: "price" },
+    { label: "Volume 24h", value: "volume_24h" },
     { label: "Volume Change 24h", value: "volume_change_24h" },
+    { label: "Change 24h", value: "percent_change_24h" },
+    { label: "Change 7d", value: "percent_change_7d" },
+    { label: "Change 30d", value: "percent_change_30d" },
     { label: "Market Cap", value: "market_cap" },
+    { label: "Circulating Supply", value: "circulating_supply" },
+    { label: "Total Supply", value: "total_supply" },
     { label: "Last Updated", value: "last_updated" },
-    // Add other columns as needed
   ];
   const router = useRouter();
   return (
@@ -70,6 +71,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
               <td>{currency.name}</td>
               <td>{currency.symbol}</td>
               <td>{formatPrice(currency.price)}</td>
+              <td>$&nbsp;{AbbreviatedNumberFormat(currency.volume_24h)}</td>
               <td
                 className={
                   currency.volume_change_24h < 0 ? "text-error" : "text-success"
@@ -77,7 +79,30 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
               >
                 {formatVolumeChange(currency.volume_change_24h)}
               </td>
-              <td>{formatPrice(currency.market_cap)}</td>
+              <td
+                className={
+                  currency.percent_change_24h < 0 ? "text-error" : "text-success"
+                }
+              >
+                {formatVolumeChange(currency.percent_change_24h)}
+              </td>
+              <td
+                className={
+                  currency.percent_change_7d < 0 ? "text-error" : "text-success"
+                }
+              >
+                {formatVolumeChange(currency.percent_change_7d)}
+              </td>
+              <td
+                className={
+                  currency.percent_change_30d < 0 ? "text-error" : "text-success"
+                }
+              >
+                {formatVolumeChange(currency.percent_change_30d)}
+              </td>
+              <td>$&nbsp;{AbbreviatedNumberFormat(currency.market_cap)}</td>
+              <td>{AbbreviatedNumberFormat(currency.circulating_supply)}</td>
+              <td>{AbbreviatedNumberFormat(currency.total_supply)}</td>
               <td>{formatDate(currency.last_updated)}</td>
             </tr>
           ))}
