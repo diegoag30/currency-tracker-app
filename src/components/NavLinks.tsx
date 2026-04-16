@@ -4,6 +4,7 @@ import {
   CurrencyDollarIcon,
   TableCellsIcon,
   HomeIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
 
 import clsx from "clsx";
@@ -30,6 +31,12 @@ const links = [
     name: "Currencies",
     href: "/dashboard/currencies",
     icon: CurrencyDollarIcon,
+  },
+  {
+    id: 4,
+    name: "Watchlist",
+    href: "/dashboard/watchlist",
+    icon: StarIcon,
   },
 ];
 
