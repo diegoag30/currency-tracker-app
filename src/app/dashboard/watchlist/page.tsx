@@ -9,14 +9,12 @@ import { createClient } from '@/lib/supabase/client'
 import { getWatchlist } from '@/lib/watchlist'
 import CurrencyLatestTableSkeleton from '@/components/CurrencyLatestTableSkeleton'
 import Search from '@/components/Search'
+import { useSortAndFilter } from '@/hooks/useSortAndFilter'
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 import useSWR from 'swr'
 
 export default function Page() {
   const [currencyIds, setCurrencyIds] = useState<number[] | null>(null)
-  const [isAscending, setIsAscending] = useState(true)
-  const [sortOption, setSortOption] = useState<keyof CurrencyLatestInfo>('market_cap')
 
   useEffect(() => {
     async function loadWatchlist() {
@@ -41,11 +39,8 @@ export default function Page() {
 
   const isEmpty = currencyIds !== null && currencyIds.length === 0
 
-  const searchParams = useSearchParams()
-  const query = searchParams.get('query')?.toLowerCase() || ''
-  const filteredData = (data ?? []).filter(
-    (c) => c.name.toLowerCase().includes(query) || c.symbol.toLowerCase().includes(query)
-  )
+  const { isAscending, setIsAscending, sortOption, setSortOption, filteredData } =
+    useSortAndFilter(data, 'market_cap')
 
   return (
     <main>
