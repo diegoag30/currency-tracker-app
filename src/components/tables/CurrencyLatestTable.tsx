@@ -69,7 +69,16 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
                   }}
                 />
               </td>
-              <td>{currency.name}</td>
+              <td>
+                <div className="flex items-center gap-2">
+                  <img
+                    src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${currency.id}.png`}
+                    alt={currency.name}
+                    className="w-6 h-6 rounded-full"
+                  />
+                  {currency.name}
+                </div>
+              </td>
               <td>{currency.symbol}</td>
               <td>{formatPrice(currency.price)}</td>
               <td>$&nbsp;{AbbreviatedNumberFormat(currency.volume_24h)}</td>
