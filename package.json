@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.103.2",
     "@tailwindcss/typography": "^0.5.14",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
