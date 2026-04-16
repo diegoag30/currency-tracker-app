@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Currency Tracker
+
+A cryptocurrency and fiat currency tracking app built with Next.js 14, powered by the [CoinMarketCap Pro API](https://coinmarketcap.com/api/).
+
+## Features
+
+- **Dashboard** — live crypto listings with search, sort, and pagination
+- **Currency detail** — price, market cap, volume, supply stats, and full description for each coin
+- **Fiat currencies** — searchable table of world currencies with flag emojis, ISO codes, and signs
+- **Converter** — real-time currency conversion
+- **Overview** — global market metrics (total market cap, BTC/ETH dominance, active exchanges)
+- **Watchlist** — save and track favourite currencies (requires login)
+- **Authentication** — login/signup via Supabase
+
+## Tech Stack
+
+| Layer | Library |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS + DaisyUI |
+| Data fetching | SWR |
+| Auth + DB | Supabase |
+| Testing | Vitest |
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Set up environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file in the project root:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```env
+API_KEY=your_coinmarketcap_api_key
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-## Learn More
+- `API_KEY` — CoinMarketCap Pro API key (server-side only, never exposed to the client)
+- Supabase credentials — from your project's API settings at supabase.com
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Run the dev server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+## Commands
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev       # Start dev server (localhost:3000)
+pnpm build     # Production build
+pnpm start     # Run production server
+pnpm lint      # ESLint (next/core-web-vitals)
+pnpm vitest    # Run tests in watch mode
+pnpm vitest run # Run tests once
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── data/route.js        # API proxy → CoinMarketCap
+│   │   └── fetcher.ts           # Fetch + transform utilities
+│   ├── dashboard/
+│   │   ├── page.tsx             # Crypto listings
+│   │   ├── [id]/page.tsx        # Currency detail
+│   │   ├── currencies/page.tsx  # Fiat currencies
+│   │   ├── converter/page.tsx   # Currency converter
+│   │   ├── overview/page.tsx    # Global market metrics
+│   │   └── watchlist/page.tsx   # Saved currencies
+│   ├── page.tsx                 # Login page
+│   └── types/                   # TypeScript interfaces
+├── components/
+│   ├── tables/                  # Table components
+│   └── buttons/                 # Reusable button components
+├── hooks/                       # Custom React hooks
+├── utils/                       # Formatters, flag helpers
+└── config/
+    └── constants.ts             # API config, table columns, mappings
+```
+
+## Data Flow
+
+1. Client components fetch data via SWR pointing to `/api/data?subpath=...`
+2. The `/api/data` route acts as a proxy — it appends the `API_KEY` and forwards the request to CoinMarketCap
+3. Responses are transformed into typed interfaces using `fetchAndTransformData()` in `src/app/api/fetcher.ts`
+4. The API key is never exposed to the browser
