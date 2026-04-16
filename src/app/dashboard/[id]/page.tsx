@@ -8,7 +8,6 @@ import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
 import { Metadata } from "@/app/types/metadata";
 import CurrencyCard from "@/components/CurrencyCard";
 import CurrencyStats from "@/components/CurrencyStats";
-import WatchlistButton from "@/components/WatchlistButton";
 import useSWR from "swr";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -52,18 +51,15 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className="flex items-center gap-3 mb-2">
-        {currency && (
-          <WatchlistButton
-            currency={{
-              currency_id: currency.id,
-              currency_name: currency.name,
-              currency_symbol: currency.symbol,
-            }}
-          />
-        )}
-      </div>
-      <CurrencyCard metadata={metaData} isLoading={metaLoading} />
+      <CurrencyCard
+        metadata={metaData}
+        isLoading={metaLoading}
+        watchlistCurrency={currency ? {
+          currency_id: currency.id,
+          currency_name: currency.name,
+          currency_symbol: currency.symbol,
+        } : undefined}
+      />
       <CurrencyStats CurrencyLatestInfo={currencyData} isLoading={statsLoading} />
     </>
   );

@@ -1,11 +1,14 @@
 import { Metadata } from "@/app/types/metadata";
+import WatchlistButton from "@/components/WatchlistButton";
+import { WatchlistItem } from "@/lib/watchlist";
 
 interface TableProps {
   metadata?: Metadata[];
   isLoading?: boolean;
+  watchlistCurrency?: WatchlistItem;
 }
 
-const CurrencyCard: React.FC<TableProps> = ({ metadata = [], isLoading }) => {
+const CurrencyCard: React.FC<TableProps> = ({ metadata = [], isLoading, watchlistCurrency }) => {
   if (isLoading || (!metadata || metadata.length === 0)) {
     return (
       <div className="card card-compact bg-neutral text-neutral-content w-full shadow-xl p-2">
@@ -33,6 +36,11 @@ const CurrencyCard: React.FC<TableProps> = ({ metadata = [], isLoading }) => {
           </div>
         </div>
         <h2 className="card-title">{CurrencyMetadata.name}</h2>
+        {watchlistCurrency && (
+          <div className="ml-auto">
+            <WatchlistButton currency={watchlistCurrency} />
+          </div>
+        )}
       </div>
       <div className="collapse collapse-arrow bg-base-200 p-2">
         <input type="checkbox" />
