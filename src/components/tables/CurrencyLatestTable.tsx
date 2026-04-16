@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import React from "react";
+import WatchlistButton from "@/components/WatchlistButton";
 interface LatestTableProps {
   currencies: CurrencyLatestInfo[];
   sortOption: keyof CurrencyLatestInfo;
@@ -45,6 +46,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
       <table className="table">
         <thead>
           <tr>
+            <th></th>
             {columns.map((column) => (
               <th key={column.value}>
                 {column.label}
@@ -68,6 +70,15 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
               key={currency.id}
               onClick={() => router.push(`/dashboard/${currency.id}`)}
             >
+              <td>
+                <WatchlistButton
+                  currency={{
+                    currency_id: currency.id,
+                    currency_name: currency.name,
+                    currency_symbol: currency.symbol,
+                  }}
+                />
+              </td>
               <td>{currency.name}</td>
               <td>{currency.symbol}</td>
               <td>{formatPrice(currency.price)}</td>
