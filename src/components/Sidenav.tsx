@@ -45,9 +45,7 @@ export default function SideNav() {
       <li className="hidden lg:block">
         <span className="menu-title text-xs uppercase tracking-widest opacity-50 px-2">Theme</span>
       </li>
-      <li>
-        <ThemeSwitcher />
-      </li>
+      <ThemeSwitcher />
 
       {/* Menu section */}
       <hr className="border-base-300 my-1" />
