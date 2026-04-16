@@ -24,9 +24,6 @@ export default function SortOptionButton({
             <a onClick={() => setSortOption("volume_24h")}>Volume 24h</a>
           </li>
           <li>
-            <a onClick={() => setSortOption("volume_change_24h")}>Volume Change 24h</a>
-          </li>
-          <li>
             <a onClick={() => setSortOption("percent_change_24h")}>Change 24h</a>
           </li>
           <li>

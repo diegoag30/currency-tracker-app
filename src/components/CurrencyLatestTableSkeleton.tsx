@@ -1,10 +1,4 @@
-import { MAX_ITEMS_PER_PAGE } from "@/config/constants";
-
-const columns = [
-  "", "Name", "Symbol", "Price", "Volume 24h", "Volume Change 24h",
-  "Change 24h", "Change 7d", "Change 30d", "Market Cap",
-  "Circulating Supply", "Total Supply", "Last Updated",
-];
+import { MAX_ITEMS_PER_PAGE, CURRENCY_TABLE_COLUMNS } from "@/config/constants";
 
 const CurrencyLatestTableSkeleton: React.FC = () => {
   return (
@@ -12,14 +6,18 @@ const CurrencyLatestTableSkeleton: React.FC = () => {
       <table className="table">
         <thead>
           <tr>
-            {columns.map((col, i) => <th key={i}>{col}</th>)}
+            <th></th>
+            {CURRENCY_TABLE_COLUMNS.map((col) => (
+              <th key={col.value}>{col.label}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {Array.from({ length: MAX_ITEMS_PER_PAGE }).map((_, rowIndex) => (
             <tr key={rowIndex}>
-              {columns.map((_, colIndex) => (
-                <td key={colIndex}>
+              <td><div className="skeleton h-4 w-6" /></td>
+              {CURRENCY_TABLE_COLUMNS.map((col) => (
+                <td key={col.value}>
                   <div className="skeleton h-4 w-20" />
                 </td>
               ))}
