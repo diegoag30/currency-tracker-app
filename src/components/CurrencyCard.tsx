@@ -1,27 +1,7 @@
 import { Metadata } from "@/app/types/metadata";
 import WatchlistButton from "@/components/WatchlistButton";
 import { WatchlistItem } from "@/lib/watchlist";
-
-const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-const buildTokenRE = (name: string) =>
-  new RegExp(
-    `(https?:\\/\\/[^\\s]+|\\$[\\d,]+(?:\\.\\d+)?|[\\d,]+(?:\\.\\d+)?|${escapeRegex(name)})`,
-    "g"
-  );
-
-const highlightDescription = (text: string, name: string) => {
-  const TOKEN_RE = buildTokenRE(name);
-  return text.split(TOKEN_RE).map((part, i) => {
-    if (/^https?:\/\//.test(part))
-      return <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-primary underline">{part}</a>;
-    if (/^\$[\d,]+/.test(part) || /^[\d,]+(?:\.\d+)?$/.test(part))
-      return <span key={i} className="font-semibold text-base-content">{part}</span>;
-    if (part === name)
-      return <span key={i} className="font-semibold text-primary">{part}</span>;
-    return part;
-  });
-};
+import { highlightDescription } from "@/utils/formatters";
 
 interface CurrencyCardProps {
   metadata?: Metadata[];
