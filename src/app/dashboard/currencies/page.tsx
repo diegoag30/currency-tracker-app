@@ -13,7 +13,9 @@ export default function Page() {
   );
   return (
     <main>
-      <div className="prose"><h1>Currencies</h1></div>
+      <div className="pb-4 mb-4 border-b border-base-300">
+        <h1 className="text-2xl font-bold">Currencies</h1>
+      </div>
       {error ? (
         <div>Failed to load</div>
       ) : !data ? (

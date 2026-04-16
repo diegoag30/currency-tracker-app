@@ -50,7 +50,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const currency = currencyData?.[0]
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <CurrencyCard
         metadata={metaData}
         isLoading={metaLoading}
@@ -61,6 +61,6 @@ export default function Page({ params }: { params: { id: string } }) {
         } : undefined}
       />
       <CurrencyStats CurrencyLatestInfo={currencyData} isLoading={statsLoading} />
-    </>
+    </div>
   );
 }

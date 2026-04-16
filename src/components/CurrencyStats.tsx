@@ -28,7 +28,8 @@ const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [], isLoadin
 
   const currencyLatestInfo = CurrencyLatestInfo[0];
   return (
-    <div className="grid grid-cols-3 gap-1">
+    <div className="bg-base-200 rounded-xl p-4 mt-4">
+    <div className="grid grid-cols-3 gap-4">
       <div className="stat">
         <div className="stat-title">Market Cap</div>
         <div className="stat-value">
@@ -70,6 +71,7 @@ const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [], isLoadin
           {formatVolumeChange(currencyLatestInfo.percent_change_30d)}
         </div>
       </div>
+    </div>
     </div>
   );
 };

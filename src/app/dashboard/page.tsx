@@ -42,10 +42,10 @@ export default function Page() {
   if (!data) return <div>Loading...</div>;
   return (
     <main>
-      <div className="prose">
-        <h1>Currencies Updates</h1>
+      <div className="pb-4 mb-4 border-b border-base-300">
+        <h1 className="text-2xl font-bold">Currencies Updates</h1>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-2 bg-base-200 rounded-xl p-3 mb-4">
         <div className="flex-1">
           <Search />
         </div>

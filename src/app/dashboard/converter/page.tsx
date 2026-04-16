@@ -89,11 +89,12 @@ export default function Page() {
 
   return (
     <main>
-      <div className="prose">
-        <h1>Converter</h1>
+      <div className="pb-4 mb-4 border-b border-base-300">
+        <h1 className="text-2xl font-bold">Converter</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-4 mt-4">
+      <div className="bg-base-200 rounded-xl p-6">
+      <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-4">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Amount</span>
@@ -153,6 +154,7 @@ export default function Page() {
           Convert
         </button>
       </form>
+      </div>
 
       <div className="mt-6">
         {isLoading && (
