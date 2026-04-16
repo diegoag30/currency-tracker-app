@@ -47,7 +47,7 @@ const CurrencyCard: React.FC<CurrencyCardProps> = ({ metadata = [], isLoading, w
         <div className="collapse-title text-xl font-medium">
           About this Currency
         </div>
-        <div className="collapse-content">
+        <div className="collapse-content prose prose-sm max-w-none prose-invert">
           <p>{CurrencyMetadata.description}</p>
         </div>
       </div>
