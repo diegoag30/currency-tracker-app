@@ -73,18 +73,8 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
               <td>{currency.symbol}</td>
               <td>{formatPrice(currency.price)}</td>
               <td>$&nbsp;{AbbreviatedNumberFormat(currency.volume_24h)}</td>
-              <td>
-                <div className="flex flex-col gap-0.5 text-xs">
-                  <span className={currency.percent_change_24h < 0 ? "text-error" : "text-success"}>
-                    24h: {formatVolumeChange(currency.percent_change_24h)}
-                  </span>
-                  <span className={currency.percent_change_7d < 0 ? "text-error" : "text-success"}>
-                    7d: {formatVolumeChange(currency.percent_change_7d)}
-                  </span>
-                  <span className={currency.percent_change_30d < 0 ? "text-error" : "text-success"}>
-                    30d: {formatVolumeChange(currency.percent_change_30d)}
-                  </span>
-                </div>
+              <td className={currency.percent_change_24h < 0 ? "text-error" : "text-success"}>
+                {formatVolumeChange(currency.percent_change_24h)}
               </td>
               <td>$&nbsp;{AbbreviatedNumberFormat(currency.market_cap)}</td>
               <td>{AbbreviatedNumberFormat(currency.circulating_supply)}</td>

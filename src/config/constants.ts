@@ -7,7 +7,7 @@ export const CURRENCY_TABLE_COLUMNS: { label: string; value: string }[] = [
   { label: "Symbol", value: "symbol" },
   { label: "Price", value: "price" },
   { label: "Volume 24h", value: "volume_24h" },
-  { label: "Changes", value: "percent_change_24h" },
+  { label: "Change 24h", value: "percent_change_24h" },
   { label: "Market Cap", value: "market_cap" },
   { label: "Circulating Supply", value: "circulating_supply" },
 ];
