@@ -19,12 +19,8 @@ export default function ThemeSwitcher() {
   }
 
   return (
-    <div className="dropdown dropdown-top dropdown-end w-full">
-      <div
-        tabIndex={0}
-        role="button"
-        className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-base-300 cursor-pointer w-full"
-      >
+    <div className="dropdown dropdown-top w-full">
+      <div tabIndex={0} role="button" className="flex items-center gap-2 w-full">
         <PaintBrushIcon className="w-5 h-5 shrink-0" />
         <span className="hidden lg:block text-sm capitalize">{current}</span>
       </div>
