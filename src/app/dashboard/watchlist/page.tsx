@@ -8,7 +8,9 @@ import SortOptionButton from '@/components/buttons/SortOptionButton'
 import { createClient } from '@/lib/supabase/client'
 import { getWatchlist } from '@/lib/watchlist'
 import CurrencyLatestTableSkeleton from '@/components/CurrencyLatestTableSkeleton'
+import Search from '@/components/Search'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import useSWR from 'swr'
 
 export default function Page() {
@@ -39,6 +41,12 @@ export default function Page() {
 
   const isEmpty = currencyIds !== null && currencyIds.length === 0
 
+  const searchParams = useSearchParams()
+  const query = searchParams.get('query')?.toLowerCase() || ''
+  const filteredData = (data ?? []).filter(
+    (c) => c.name.toLowerCase().includes(query) || c.symbol.toLowerCase().includes(query)
+  )
+
   return (
     <main>
       <div className="pb-4 mb-4 border-b border-base-300">
@@ -66,7 +74,10 @@ export default function Page() {
 
       {!isEmpty && currencyIds !== null && (
         <>
-          <div className="flex items-center justify-end gap-2 mt-4">
+          <div className="flex items-center gap-2 bg-base-200 rounded-xl p-3 mb-4">
+            <div className="flex-1">
+              <Search />
+            </div>
             <SortOptionButton setSortOption={setSortOption} />
             <SortButton isAscending={isAscending} setIsAscending={setIsAscending} />
           </div>
@@ -74,7 +85,7 @@ export default function Page() {
           {!data && !error && <CurrencyLatestTableSkeleton />}
           {data && (
             <CurrencyLatestTable
-              currencies={data}
+              currencies={filteredData}
               sortOption={sortOption}
               isAscending={isAscending}
             />
