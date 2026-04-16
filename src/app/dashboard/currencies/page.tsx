@@ -13,7 +13,7 @@ export default function Page() {
   );
   return (
     <main>
-      <h1>Hello from Currencies</h1>
+      <div className="prose"><h1>Currencies</h1></div>
       {error ? (
         <div>Failed to load</div>
       ) : !data ? (

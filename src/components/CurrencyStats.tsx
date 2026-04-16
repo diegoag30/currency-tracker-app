@@ -6,11 +6,26 @@ import {
 
 interface TableProps {
   CurrencyLatestInfo?: CurrencyLatestInfo[];
+  isLoading?: boolean;
 }
-const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [] }) => {
-  if (!CurrencyLatestInfo || CurrencyLatestInfo.length === 0) {
-    return <div>No CurrencyLatestInfo available</div>;
+
+const StatSkeleton = () => (
+  <div className="stat">
+    <div className="skeleton h-3 w-24 mb-2" />
+    <div className="skeleton h-8 w-32 mb-2" />
+    <div className="skeleton h-3 w-16" />
+  </div>
+);
+
+const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [], isLoading }) => {
+  if (isLoading || !CurrencyLatestInfo || CurrencyLatestInfo.length === 0) {
+    return (
+      <div className="grid grid-cols-3 gap-1 mt-2">
+        {Array.from({ length: 6 }).map((_, i) => <StatSkeleton key={i} />)}
+      </div>
+    );
   }
+
   const currencyLatestInfo = CurrencyLatestInfo[0];
   return (
     <div className="grid grid-cols-3 gap-1">
@@ -19,7 +34,6 @@ const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [] }) => {
         <div className="stat-value">
           {AbbreviatedNumberFormat(currencyLatestInfo.market_cap)}
         </div>
-        <div className="stat-desc">Jan 1st - Feb 1st</div>
       </div>
 
       <div className="stat">
@@ -27,36 +41,34 @@ const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [] }) => {
         <div className="stat-value">
           {formatVolumeChange(currencyLatestInfo.volume_change_24h)}
         </div>
-        <div className="stat-desc">↗︎ 400 (22%)</div>
       </div>
 
       <div className="stat">
-        <div className="stat-title">Circulating supply</div>
+        <div className="stat-title">Circulating Supply</div>
         <div className="stat-value">
           {AbbreviatedNumberFormat(currencyLatestInfo.circulating_supply)}
         </div>
-        <div className="stat-desc">↘︎ 90 (14%)</div>
       </div>
+
       <div className="stat">
-        <div className="stat-title">24 hours % change</div>
+        <div className="stat-title">24h % Change</div>
         <div className="stat-value">
           {formatVolumeChange(currencyLatestInfo.percent_change_24h)}
         </div>
-        <div className="stat-desc">↘︎ 90 (14%)</div>
       </div>
+
       <div className="stat">
-        <div className="stat-title">7 days % change</div>
+        <div className="stat-title">7d % Change</div>
         <div className="stat-value">
           {formatVolumeChange(currencyLatestInfo.percent_change_7d)}
         </div>
-        <div className="stat-desc">↘︎ 90 (14%)</div>
       </div>
+
       <div className="stat">
-        <div className="stat-title">30 days % change</div>
+        <div className="stat-title">30d % Change</div>
         <div className="stat-value">
           {formatVolumeChange(currencyLatestInfo.percent_change_30d)}
         </div>
-        <div className="stat-desc">↘︎ 90 (14%)</div>
       </div>
     </div>
   );

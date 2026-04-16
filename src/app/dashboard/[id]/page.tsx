@@ -26,7 +26,7 @@ export default function Page({ params }: { params: { id: string } }) {
     MetaDataqueryParams
   ).toString();
 
-  const { data: metaData, error: error1 } = useSWR<Metadata[]>(
+  const { data: metaData, isLoading: metaLoading } = useSWR<Metadata[]>(
     `/api/data?${MetaDataqueryString}`,
     MetaDatafetcher
   );
@@ -43,7 +43,7 @@ export default function Page({ params }: { params: { id: string } }) {
     CurrencyDataqueryParams
   ).toString();
 
-  const { data: currencyData, error: error2 } = useSWR<CurrencyLatestInfo[]>(
+  const { data: currencyData, isLoading: statsLoading } = useSWR<CurrencyLatestInfo[]>(
     `/api/data?${CurrencyDataqueryString}`,
     CurrencyDatafetcher
   );
@@ -63,8 +63,8 @@ export default function Page({ params }: { params: { id: string } }) {
           />
         )}
       </div>
-      <CurrencyCard metadata={metaData} />
-      <CurrencyStats CurrencyLatestInfo={currencyData} />
+      <CurrencyCard metadata={metaData} isLoading={metaLoading} />
+      <CurrencyStats CurrencyLatestInfo={currencyData} isLoading={statsLoading} />
     </>
   );
 }
