@@ -2,29 +2,65 @@
 import {
   fetchAndTransformData,
   transformConversionData,
+  transformCurrencyData,
+  fetcher,
 } from "@/app/api/fetcher";
 import { ConversionResult } from "@/app/types/conversionResult";
+import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
+import { Currency } from "@/app/types/currency";
 import { formatDate } from "@/utils/formatters";
 import { NumericFormat } from "react-number-format";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
+import { MAX_ITEMS_PER_PAGE } from "@/config/constants";
 
 function buildUrl(amount: string, symbol: string, convert: string): string {
   const params = new URLSearchParams({
     subpath: "/v1/tools/price-conversion",
     amount,
-    symbol: symbol.toUpperCase(),
-    convert: convert.toUpperCase(),
+    symbol,
+    convert,
   });
   return `/api/data?${params.toString()}`;
 }
 
 export default function Page() {
   const [amount, setAmount] = useState("1");
-  const [symbol, setSymbol] = useState("BTC");
-  const [convert, setConvert] = useState("USD");
+  const [symbol, setSymbol] = useState("");
+  const [convert, setConvert] = useState("");
   const [swrKey, setSwrKey] = useState<string | null>(null);
-  const [submittedConvert, setSubmittedConvert] = useState("USD");
+  const [submittedConvert, setSubmittedConvert] = useState("");
+
+  // Fetch crypto options for "From"
+  const cryptoParams = new URLSearchParams({
+    subpath: "/v1/cryptocurrency/listings/latest",
+    limit: MAX_ITEMS_PER_PAGE.toString(),
+  });
+  const { data: cryptoOptions } = useSWR<CurrencyLatestInfo[]>(
+    `/api/data?${cryptoParams.toString()}`,
+    (url) => fetchAndTransformData(url, transformCurrencyData)
+  );
+
+  // Fetch fiat options for "To"
+  const { data: fiatOptions } = useSWR<Currency[]>(
+    `/api/data?subpath=${encodeURIComponent("/v1/fiat/map")}`,
+    fetcher
+  );
+
+  // Set defaults once options load
+  useEffect(() => {
+    if (cryptoOptions && cryptoOptions.length > 0 && !symbol) {
+      const btc = cryptoOptions.find((c) => c.symbol === "BTC");
+      setSymbol(btc ? btc.symbol : cryptoOptions[0].symbol);
+    }
+  }, [cryptoOptions, symbol]);
+
+  useEffect(() => {
+    if (fiatOptions && fiatOptions.length > 0 && !convert) {
+      const usd = fiatOptions.find((c) => c.symbol === "USD");
+      setConvert(usd ? usd.symbol : fiatOptions[0].symbol);
+    }
+  }, [fiatOptions, convert]);
 
   const conversionFetcher = (url: string) =>
     fetchAndTransformData(url, (json) =>
@@ -38,10 +74,18 @@ export default function Page() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (parseFloat(amount) <= 0 || !symbol.trim() || !convert.trim()) return;
+    if (parseFloat(amount) <= 0 || !symbol || !convert) return;
+
+    // Validate symbol and convert are strictly from the loaded option lists
+    const validSymbol = cryptoOptions?.some((c) => c.symbol === symbol);
+    const validConvert = fiatOptions?.some((c) => c.symbol === convert);
+    if (!validSymbol || !validConvert) return;
+
     setSubmittedConvert(convert);
     setSwrKey(buildUrl(amount, symbol, convert));
   }
+
+  const optionsReady = !!cryptoOptions && !!fiatOptions;
 
   return (
     <main>
@@ -69,31 +113,43 @@ export default function Page() {
           <label className="label">
             <span className="label-text">From</span>
           </label>
-          <input
-            type="text"
-            placeholder="BTC"
+          <select
+            className="select select-bordered w-36"
             value={symbol}
             onChange={(e) => setSymbol(e.target.value)}
-            className="input input-bordered w-28 uppercase"
+            disabled={!optionsReady}
             required
-          />
+          >
+            {!optionsReady && <option value="">Loading...</option>}
+            {cryptoOptions?.map((c) => (
+              <option key={c.id} value={c.symbol}>
+                {c.symbol} — {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="form-control">
           <label className="label">
             <span className="label-text">To</span>
           </label>
-          <input
-            type="text"
-            placeholder="USD"
+          <select
+            className="select select-bordered w-36"
             value={convert}
             onChange={(e) => setConvert(e.target.value)}
-            className="input input-bordered w-28 uppercase"
+            disabled={!optionsReady}
             required
-          />
+          >
+            {!optionsReady && <option value="">Loading...</option>}
+            {fiatOptions?.map((c) => (
+              <option key={c.id} value={c.symbol}>
+                {c.symbol} — {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" disabled={!optionsReady}>
           Convert
         </button>
       </form>
@@ -110,7 +166,7 @@ export default function Page() {
 
         {error && (
           <div role="alert" className="alert alert-error">
-            <span>Conversion failed. Check your symbols and try again.</span>
+            <span>Conversion failed. Please try again.</span>
           </div>
         )}
 
