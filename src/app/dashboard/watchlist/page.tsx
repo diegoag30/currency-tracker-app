@@ -8,6 +8,7 @@ import SortOptionButton from '@/components/buttons/SortOptionButton'
 import { createClient } from '@/lib/supabase/client'
 import { getWatchlist } from '@/lib/watchlist'
 import CurrencyLatestTableSkeleton from '@/components/CurrencyLatestTableSkeleton'
+import ErrorAlert from '@/components/ErrorAlert'
 import Search from '@/components/Search'
 import { useSortAndFilter } from '@/hooks/useSortAndFilter'
 import { useEffect, useState } from 'react'
@@ -58,11 +59,7 @@ export default function Page() {
         </div>
       )}
 
-      {error && (
-        <div role="alert" className="alert alert-error mt-4">
-          <span>Failed to load watchlist data.</span>
-        </div>
-      )}
+      {error && <ErrorAlert message="Failed to load watchlist data." />}
 
       {/* Phase 1: Supabase watchlist still loading */}
       {currencyIds === null && <CurrencyLatestTableSkeleton />}

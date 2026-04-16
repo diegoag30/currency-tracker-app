@@ -2,6 +2,7 @@
 import { fetcher } from "@/app/api/fetcher";
 import { Currency } from "@/app/types/currency";
 import CurrencyTableSkeleton from "@/components/CurrencyTableSkeleton";
+import ErrorAlert from "@/components/ErrorAlert";
 import CurrencyTable from "@/components/tables/CurrencyTable";
 import useSWR from "swr";
 
@@ -17,7 +18,7 @@ export default function Page() {
         <h1 className="text-2xl font-bold">Currencies</h1>
       </div>
       {error ? (
-        <div>Failed to load</div>
+        <ErrorAlert />
       ) : !data ? (
         <CurrencyTableSkeleton />
       ) : (

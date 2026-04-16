@@ -8,6 +8,8 @@ import SortOptionButton from "@/components/buttons/SortOptionButton";
 import Search from "@/components/Search";
 import CurrencyLatestTable from "@/components/tables/CurrencyLatestTable";
 import { MAX_ITEMS_PER_PAGE } from "@/config/constants";
+import CurrencyLatestTableSkeleton from "@/components/CurrencyLatestTableSkeleton";
+import ErrorAlert from "@/components/ErrorAlert";
 import { useSortAndFilter } from "@/hooks/useSortAndFilter";
 import useSWR from "swr";
 import { CurrencyLatestInfo } from "../types/currencyLatestInfo";
@@ -26,8 +28,8 @@ export default function Page() {
   const { isAscending, setIsAscending, sortOption, setSortOption, filteredData } =
     useSortAndFilter(data, "price");
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) return <ErrorAlert />;
+  if (!data) return <CurrencyLatestTableSkeleton />;
   return (
     <main>
       <div className="pb-4 mb-4 border-b border-base-300">
