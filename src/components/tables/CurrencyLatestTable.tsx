@@ -79,7 +79,6 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
                   {currency.name}
                 </div>
               </td>
-              <td>{currency.symbol}</td>
               <td>{formatPrice(currency.price)}</td>
               <td>$&nbsp;{AbbreviatedNumberFormat(currency.volume_24h)}</td>
               <td className={currency.percent_change_24h < 0 ? "text-error" : "text-success"}>

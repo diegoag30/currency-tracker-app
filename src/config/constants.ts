@@ -7,7 +7,6 @@ export type Theme = (typeof THEMES)[number];
 
 export const CURRENCY_TABLE_COLUMNS: { label: string; value: string }[] = [
   { label: "Name", value: "name" },
-  { label: "Symbol", value: "symbol" },
   { label: "Price", value: "price" },
   { label: "Volume 24h", value: "volume_24h" },
   { label: "Change 24h", value: "percent_change_24h" },

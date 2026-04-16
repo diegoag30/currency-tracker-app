@@ -73,12 +73,6 @@ describe('CurrencyLatestTable', () => {
     expect(screen.getByText('Ethereum')).toBeInTheDocument()
   })
 
-  it('renders symbols', () => {
-    render(<CurrencyLatestTable currencies={currencies} sortOption="price" isAscending={true} />)
-    expect(screen.getByText('BTC')).toBeInTheDocument()
-    expect(screen.getByText('ETH')).toBeInTheDocument()
-  })
-
   it('applies text-error class on negative percent change', () => {
     render(<CurrencyLatestTable currencies={currencies} sortOption="price" isAscending={true} />)
     // ETH has percent_change_24h = -0.5, should have text-error

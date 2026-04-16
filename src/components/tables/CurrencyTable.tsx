@@ -14,7 +14,6 @@ const CurrencyTable: React.FC<TableProps> = ({ currencies }) => {
           <tr>
             <th>Name</th>
             <th>Sign</th>
-            <th>Symbol</th>
           </tr>
         </thead>
         <tbody>
@@ -22,7 +21,6 @@ const CurrencyTable: React.FC<TableProps> = ({ currencies }) => {
             <tr className="hover" key={currency.id}>
               <td>{currency.name}</td>
               <td>{currency.sign}</td>
-              <td>{currency.symbol}</td>
             </tr>
           ))}
         </tbody>
