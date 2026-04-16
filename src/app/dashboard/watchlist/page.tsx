@@ -7,7 +7,7 @@ import SortButton from '@/components/buttons/SortButton'
 import SortOptionButton from '@/components/buttons/SortOptionButton'
 import { createClient } from '@/lib/supabase/client'
 import { getWatchlist } from '@/lib/watchlist'
-import CurrencyLatestTableSkeleton from '@/components/CurrencyLatestTableSkeleton'
+import CurrencyListingsTableSkeleton from '@/components/CurrencyListingsTableSkeleton'
 import ErrorAlert from '@/components/ErrorAlert'
 import Search from '@/components/Search'
 import { useSortAndFilter } from '@/hooks/useSortAndFilter'
@@ -62,7 +62,7 @@ export default function Page() {
       {error && <ErrorAlert message="Failed to load watchlist data." />}
 
       {/* Phase 1: Supabase watchlist still loading */}
-      {currencyIds === null && <CurrencyLatestTableSkeleton />}
+      {currencyIds === null && <CurrencyListingsTableSkeleton />}
 
       {!isEmpty && currencyIds !== null && (
         <>
@@ -74,7 +74,7 @@ export default function Page() {
             <SortButton isAscending={isAscending} setIsAscending={setIsAscending} />
           </div>
           {/* Phase 2: Live prices loading */}
-          {!data && !error && <CurrencyLatestTableSkeleton />}
+          {!data && !error && <CurrencyListingsTableSkeleton />}
           {data && (
             <CurrencyLatestTable
               currencies={filteredData}

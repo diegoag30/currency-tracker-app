@@ -1,6 +1,6 @@
 import { MAX_ITEMS_PER_PAGE, CURRENCY_TABLE_COLUMNS } from "@/config/constants";
 
-const CurrencyLatestTableSkeleton: React.FC = () => {
+const CurrencyListingsTableSkeleton: React.FC = () => {
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -29,4 +29,4 @@ const CurrencyLatestTableSkeleton: React.FC = () => {
   );
 };
 
-export default CurrencyLatestTableSkeleton;
+export default CurrencyListingsTableSkeleton;

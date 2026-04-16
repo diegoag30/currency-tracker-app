@@ -8,7 +8,7 @@ import SortOptionButton from "@/components/buttons/SortOptionButton";
 import Search from "@/components/Search";
 import CurrencyLatestTable from "@/components/tables/CurrencyLatestTable";
 import { MAX_ITEMS_PER_PAGE } from "@/config/constants";
-import CurrencyLatestTableSkeleton from "@/components/CurrencyLatestTableSkeleton";
+import CurrencyListingsTableSkeleton from "@/components/CurrencyListingsTableSkeleton";
 import ErrorAlert from "@/components/ErrorAlert";
 import { useSortAndFilter } from "@/hooks/useSortAndFilter";
 import useSWR from "swr";
@@ -29,7 +29,7 @@ export default function Page() {
     useSortAndFilter(data, "price");
 
   if (error) return <ErrorAlert />;
-  if (!data) return <CurrencyLatestTableSkeleton />;
+  if (!data) return <CurrencyListingsTableSkeleton />;
   return (
     <main>
       <div className="pb-4 mb-4 border-b border-base-300">
