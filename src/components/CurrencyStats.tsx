@@ -17,6 +17,9 @@ const StatSkeleton = () => (
   </div>
 );
 
+const changeColor = (value: number) =>
+  value > 0 ? "text-success" : value < 0 ? "text-error" : "";
+
 const CurrencyStats: React.FC<CurrencyStatsProps> = ({ currencies = [], isLoading }) => {
   if (isLoading || !currencies || currencies.length === 0) {
     return (
@@ -39,7 +42,7 @@ const CurrencyStats: React.FC<CurrencyStatsProps> = ({ currencies = [], isLoadin
 
       <div className="stat">
         <div className="stat-title">24h Volume Change</div>
-        <div className="stat-value">
+        <div className={`stat-value ${changeColor(currencyLatestInfo.volume_change_24h)}`}>
           {formatVolumeChange(currencyLatestInfo.volume_change_24h)}
         </div>
       </div>
@@ -53,21 +56,21 @@ const CurrencyStats: React.FC<CurrencyStatsProps> = ({ currencies = [], isLoadin
 
       <div className="stat">
         <div className="stat-title">24h % Change</div>
-        <div className="stat-value">
+        <div className={`stat-value ${changeColor(currencyLatestInfo.percent_change_24h)}`}>
           {formatVolumeChange(currencyLatestInfo.percent_change_24h)}
         </div>
       </div>
 
       <div className="stat">
         <div className="stat-title">7d % Change</div>
-        <div className="stat-value">
+        <div className={`stat-value ${changeColor(currencyLatestInfo.percent_change_7d)}`}>
           {formatVolumeChange(currencyLatestInfo.percent_change_7d)}
         </div>
       </div>
 
       <div className="stat">
         <div className="stat-title">30d % Change</div>
-        <div className="stat-value">
+        <div className={`stat-value ${changeColor(currencyLatestInfo.percent_change_30d)}`}>
           {formatVolumeChange(currencyLatestInfo.percent_change_30d)}
         </div>
       </div>
