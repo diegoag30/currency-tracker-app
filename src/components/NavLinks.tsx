@@ -2,7 +2,7 @@
 import {
   ArrowsRightLeftIcon,
   CurrencyDollarIcon,
-  DocumentDuplicateIcon,
+  TableCellsIcon,
   HomeIcon,
 } from "@heroicons/react/24/outline";
 
@@ -15,9 +15,9 @@ const links = [
   { id: 0, name: "Home", href: "/dashboard", icon: HomeIcon },
   {
     id: 1,
-    name: "Invoices",
-    href: "/dashboard/invoices",
-    icon: DocumentDuplicateIcon,
+    name: "Markets",
+    href: "/dashboard/markets",
+    icon: TableCellsIcon,
   },
   {
     id: 2,

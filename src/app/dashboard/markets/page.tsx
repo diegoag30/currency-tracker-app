@@ -43,7 +43,7 @@ export default function Page() {
   return (
     <main>
       <div className="prose">
-        <h1>Invoices</h1>
+        <h1>Markets</h1>
       </div>
       <div className="flex items-center space-x-2">
         <div className="flex-1">
