@@ -1,5 +1,6 @@
 import { ConversionResult } from "../types/conversionResult";
 import { CurrencyLatestInfo } from "../types/currencyLatestInfo";
+import { GlobalMetrics } from "../types/globalMetrics";
 import { Metadata } from "../types/metadata";
 // Generic fetch and transform function
 export const fetchAndTransformData = async <T>(
@@ -61,6 +62,30 @@ export const transformConversionData = (json: any, convertTo: string): Conversio
     last_updated: item.quote[key].last_updated,
   };
 };
+
+export const transformGlobalMetrics = (json: any): GlobalMetrics => {
+  const d = json.data
+  const usd = d.quote.USD
+  return {
+    btc_dominance: d.btc_dominance,
+    eth_dominance: d.eth_dominance,
+    active_cryptocurrencies: d.active_cryptocurrencies,
+    total_cryptocurrencies: d.total_cryptocurrencies,
+    active_market_pairs: d.active_market_pairs,
+    active_exchanges: d.active_exchanges,
+    total_exchanges: d.total_exchanges,
+    last_updated: d.last_updated,
+    total_market_cap: usd.total_market_cap,
+    total_volume_24h: usd.total_volume_24h,
+    altcoin_volume_24h: usd.altcoin_volume_24h,
+    defi_volume_24h: usd.defi_volume_24h,
+    stablecoin_volume_24h: usd.stablecoin_volume_24h,
+    total_market_cap_yesterday: usd.total_market_cap_yesterday,
+    total_volume_24h_yesterday: usd.total_volume_24h_yesterday,
+    total_market_cap_yesterday_percentage_change: usd.total_market_cap_yesterday_percentage_change,
+    total_volume_24h_yesterday_percentage_change: usd.total_volume_24h_yesterday_percentage_change,
+  }
+}
 
 export const transformMetaData = (json: any): Metadata[] => {
   const data = json.data;

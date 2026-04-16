@@ -19,6 +19,7 @@ import {
   fetchAndTransformData,
   transformCurrencyData,
   transformConversionData,
+  transformGlobalMetrics,
   transformMetaData,
 } from './fetcher'
 
@@ -125,6 +126,52 @@ describe('transformConversionData', () => {
   it('uppercases the convertTo key', () => {
     const result = transformConversionData(mockConversionApiResponse, 'usd')
     expect(result.convertTo).toBe('USD')
+  })
+})
+
+const mockGlobalMetricsApiResponse = {
+  data: {
+    btc_dominance: 52.5,
+    eth_dominance: 17.3,
+    active_cryptocurrencies: 9000,
+    total_cryptocurrencies: 10000,
+    active_market_pairs: 85000,
+    active_exchanges: 700,
+    total_exchanges: 900,
+    last_updated: '2024-01-15T10:00:00Z',
+    quote: {
+      USD: {
+        total_market_cap: 2_500_000_000_000,
+        total_volume_24h: 80_000_000_000,
+        altcoin_volume_24h: 40_000_000_000,
+        defi_volume_24h: 10_000_000_000,
+        stablecoin_volume_24h: 50_000_000_000,
+        total_market_cap_yesterday: 2_400_000_000_000,
+        total_volume_24h_yesterday: 75_000_000_000,
+        total_market_cap_yesterday_percentage_change: 4.17,
+        total_volume_24h_yesterday_percentage_change: 6.67,
+      },
+    },
+  },
+}
+
+describe('transformGlobalMetrics', () => {
+  it('maps top-level fields correctly', () => {
+    const result = transformGlobalMetrics(mockGlobalMetricsApiResponse)
+    expect(result.btc_dominance).toBe(52.5)
+    expect(result.eth_dominance).toBe(17.3)
+    expect(result.active_cryptocurrencies).toBe(9000)
+    expect(result.active_exchanges).toBe(700)
+    expect(result.active_market_pairs).toBe(85000)
+  })
+
+  it('maps USD quote fields correctly', () => {
+    const result = transformGlobalMetrics(mockGlobalMetricsApiResponse)
+    expect(result.total_market_cap).toBe(2_500_000_000_000)
+    expect(result.total_volume_24h).toBe(80_000_000_000)
+    expect(result.defi_volume_24h).toBe(10_000_000_000)
+    expect(result.total_market_cap_yesterday_percentage_change).toBe(4.17)
+    expect(result.total_volume_24h_yesterday_percentage_change).toBe(6.67)
   })
 })
 
