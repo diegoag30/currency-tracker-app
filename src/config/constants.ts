@@ -2,7 +2,7 @@ export const API_BASE_URL = "https://pro-api.coinmarketcap.com";
 export const MAX_ITEMS_PER_PAGE = 7;
 export const DECIMAL_SCALE = 2;
 
-export const THEMES = ["night", "nord", "cyberpunk"] as const;
+export const THEMES = ["sunset", "night", "nord", "cyberpunk"] as const;
 export type Theme = (typeof THEMES)[number];
 
 export const CURRENCY_TABLE_COLUMNS: { label: string; value: string }[] = [

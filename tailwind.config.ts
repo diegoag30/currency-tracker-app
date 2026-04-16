@@ -17,8 +17,8 @@ const config: Config = {
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
-    themes: ["night", "nord", "cyberpunk"],
-    defaultTheme: "night",
+    themes: ["sunset", "night", "nord", "cyberpunk"],
+    defaultTheme: "sunset",
   },
 };
 export default config;

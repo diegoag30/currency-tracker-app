@@ -15,14 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="night">
+    <html lang="en" data-theme="sunset">
       <head>
         {/* Apply saved theme before render to avoid flash */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const theme = localStorage.getItem("theme") || "night";
+                const theme = localStorage.getItem("theme") || "sunset";
                 document.documentElement.setAttribute("data-theme", theme);
               } catch {}
             `,
