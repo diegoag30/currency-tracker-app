@@ -12,7 +12,7 @@ import { formatDate } from "@/utils/formatters";
 import { NumericFormat } from "react-number-format";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
-import { MAX_ITEMS_PER_PAGE } from "@/config/constants";
+import { MAX_ITEMS_PER_PAGE, DECIMAL_SCALE } from "@/config/constants";
 
 function buildUrl(amount: string, symbol: string, convert: string): string {
   const params = new URLSearchParams({
@@ -181,7 +181,7 @@ export default function Page() {
                   value={data.convertedAmount}
                   displayType="text"
                   thousandSeparator
-                  decimalScale={6}
+                  decimalScale={DECIMAL_SCALE}
                   suffix={` ${data.convertTo}`}
                 />
               </div>

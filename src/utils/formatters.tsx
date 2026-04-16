@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { NumericFormat } from "react-number-format";
+import { DECIMAL_SCALE } from "@/config/constants";
 // Formatters
 const abbreviateNumber = (value: number) => {
   if (value >= 1e12) return (value / 1e12).toFixed(1) + "T";
@@ -20,7 +21,7 @@ export const formatPrice = (value: number) => (
     displayType={"text"}
     thousandSeparator={true}
     prefix={"$"}
-    decimalScale={2}
+    decimalScale={DECIMAL_SCALE}
   />
 );
 
@@ -29,7 +30,7 @@ export const formatNumber = (value: number) => (
     value={value || 0}
     displayType={"text"}
     thousandSeparator={true}
-    decimalScale={2}
+    decimalScale={DECIMAL_SCALE}
   />
 );
 
@@ -37,7 +38,7 @@ export const formatVolumeChange = (value: number) => (
   <NumericFormat
     value={value || 0}
     displayType={"text"}
-    decimalScale={2}
+    decimalScale={DECIMAL_SCALE}
     suffix={"%"}
     // prefix={value > 0 ? "-" : "+"}
   />
