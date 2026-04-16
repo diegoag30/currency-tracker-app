@@ -121,7 +121,7 @@ export default function Page() {
             required
           >
             {!optionsReady && <option value="">Loading...</option>}
-            {cryptoOptions?.map((c) => (
+            {cryptoOptions?.slice().sort((a, b) => a.symbol.localeCompare(b.symbol)).map((c) => (
               <option key={c.id} value={c.symbol}>
                 {c.symbol} — {c.name}
               </option>
@@ -141,7 +141,7 @@ export default function Page() {
             required
           >
             {!optionsReady && <option value="">Loading...</option>}
-            {fiatOptions?.map((c) => (
+            {fiatOptions?.slice().sort((a, b) => a.symbol.localeCompare(b.symbol)).map((c) => (
               <option key={c.id} value={c.symbol}>
                 {c.symbol} — {c.name}
               </option>
