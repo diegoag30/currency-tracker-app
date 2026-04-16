@@ -1,6 +1,7 @@
 'use client'
 
 import NavLinks from './NavLinks'
+import ThemeSwitcher from './ThemeSwitcher'
 import { ArrowLeftEndOnRectangleIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -41,6 +42,9 @@ export default function SideNav() {
       <NavLinks />
 
       <li className="mt-auto">
+        <ThemeSwitcher />
+      </li>
+      <li>
         <button onClick={handleSignOut} className="text-error">
           <ArrowLeftEndOnRectangleIcon className="w-5 h-5" />
           <p className="hidden lg:block">Sign Out</p>
