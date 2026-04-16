@@ -4,8 +4,8 @@ import {
   formatVolumeChange,
 } from "@/utils/formatters";
 
-interface TableProps {
-  CurrencyLatestInfo?: CurrencyLatestInfo[];
+interface CurrencyStatsProps {
+  currencies?: CurrencyLatestInfo[];
   isLoading?: boolean;
 }
 
@@ -17,8 +17,8 @@ const StatSkeleton = () => (
   </div>
 );
 
-const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [], isLoading }) => {
-  if (isLoading || !CurrencyLatestInfo || CurrencyLatestInfo.length === 0) {
+const CurrencyStats: React.FC<CurrencyStatsProps> = ({ currencies = [], isLoading }) => {
+  if (isLoading || !currencies || currencies.length === 0) {
     return (
       <div className="grid grid-cols-3 gap-1 mt-2">
         {Array.from({ length: 6 }).map((_, i) => <StatSkeleton key={i} />)}
@@ -26,7 +26,7 @@ const CurrencyStats: React.FC<TableProps> = ({ CurrencyLatestInfo = [], isLoadin
     );
   }
 
-  const currencyLatestInfo = CurrencyLatestInfo[0];
+  const currencyLatestInfo = currencies[0];
   return (
     <div className="bg-base-200 rounded-xl p-4 mt-4">
     <div className="grid grid-cols-3 gap-4">

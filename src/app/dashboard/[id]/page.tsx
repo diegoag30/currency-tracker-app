@@ -60,7 +60,7 @@ export default function Page({ params }: { params: { id: string } }) {
           currency_symbol: currency.symbol,
         } : undefined}
       />
-      <CurrencyStats CurrencyLatestInfo={currencyData} isLoading={statsLoading} />
+      <CurrencyStats currencies={currencyData} isLoading={statsLoading} />
     </div>
   );
 }
