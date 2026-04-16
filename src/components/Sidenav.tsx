@@ -41,7 +41,7 @@ export default function SideNav() {
       </li>
 
       {/* Theme section */}
-      <li className="divider my-1" />
+      <li><hr className="border-base-300 my-1" /></li>
       <li className="hidden lg:block">
         <span className="menu-title text-xs uppercase tracking-widest opacity-50 px-2">Theme</span>
       </li>
@@ -50,7 +50,7 @@ export default function SideNav() {
       </li>
 
       {/* Menu section */}
-      <li className="divider my-1" />
+      <li><hr className="border-base-300 my-1" /></li>
       <li className="hidden lg:block">
         <span className="menu-title text-xs uppercase tracking-widest opacity-50 px-2">Menu</span>
       </li>
