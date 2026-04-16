@@ -7,6 +7,7 @@ import SortButton from '@/components/buttons/SortButton'
 import SortOptionButton from '@/components/buttons/SortOptionButton'
 import { createClient } from '@/lib/supabase/client'
 import { getWatchlist } from '@/lib/watchlist'
+import CurrencyLatestTableSkeleton from '@/components/CurrencyLatestTableSkeleton'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
@@ -56,15 +57,17 @@ export default function Page() {
         </div>
       )}
 
+      {/* Phase 1: Supabase watchlist still loading */}
+      {currencyIds === null && <CurrencyLatestTableSkeleton />}
+
       {!isEmpty && currencyIds !== null && (
         <>
           <div className="flex items-center justify-end gap-2 mt-4">
             <SortOptionButton setSortOption={setSortOption} />
             <SortButton isAscending={isAscending} setIsAscending={setIsAscending} />
           </div>
-          {!data && !error && (
-            <div className="mt-4 text-base-content/60">Loading...</div>
-          )}
+          {/* Phase 2: Live prices loading */}
+          {!data && !error && <CurrencyLatestTableSkeleton />}
           {data && (
             <CurrencyLatestTable
               currencies={data}
