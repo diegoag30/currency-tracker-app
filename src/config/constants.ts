@@ -5,6 +5,15 @@ export const DECIMAL_SCALE = 2;
 export const THEMES = ["sunset", "night", "retro", "luxury"] as const;
 export type Theme = (typeof THEMES)[number];
 
+export const CURRENCY_SYMBOL_TO_COUNTRY: Record<string, string> = {
+  EUR: "EU",
+  XCD: "AG",
+  XOF: "SN",
+  XAF: "CM",
+  XPF: "PF",
+  XDR: "",
+};
+
 export const CURRENCY_TABLE_COLUMNS: { label: string; value: string }[] = [
   { label: "Name", value: "name" },
   { label: "Price", value: "price" },
