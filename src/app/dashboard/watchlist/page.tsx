@@ -19,11 +19,15 @@ export default function Page() {
 
   useEffect(() => {
     async function loadWatchlist() {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { setCurrencyIds([]); return }
-      const items = await getWatchlist(supabase, user.id)
-      setCurrencyIds(items.map((i) => i.currency_id))
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) { setCurrencyIds([]); return }
+        const items = await getWatchlist(supabase, user.id)
+        setCurrencyIds(items.map((i) => i.currency_id))
+      } catch {
+        setCurrencyIds([])
+      }
     }
     loadWatchlist()
   }, [])

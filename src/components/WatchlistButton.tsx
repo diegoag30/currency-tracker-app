@@ -19,10 +19,14 @@ export default function WatchlistButton({ currency }: WatchlistButtonProps) {
 
   useEffect(() => {
     async function checkWatchlist() {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session?.user) return
-      const watchlist = await getWatchlist(supabase, session.user.id)
-      setInWatchlist(watchlist.some((item) => item.currency_id === currency.currency_id))
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (!session?.user) return
+        const watchlist = await getWatchlist(supabase, session.user.id)
+        setInWatchlist(watchlist.some((item) => item.currency_id === currency.currency_id))
+      } catch {
+        // silently ignore — button just shows unstarred state
+      }
     }
     checkWatchlist()
   }, [currency.currency_id])
@@ -30,18 +34,23 @@ export default function WatchlistButton({ currency }: WatchlistButtonProps) {
   async function handleClick(e: React.MouseEvent) {
     e.stopPropagation()
     setLoading(true)
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session?.user) return
-    const user = session.user
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.user) return
+      const user = session.user
 
-    if (inWatchlist) {
-      await removeFromWatchlist(supabase, user.id, currency.currency_id)
-      setInWatchlist(false)
-    } else {
-      await addToWatchlist(supabase, user.id, currency)
-      setInWatchlist(true)
+      if (inWatchlist) {
+        await removeFromWatchlist(supabase, user.id, currency.currency_id)
+        setInWatchlist(false)
+      } else {
+        await addToWatchlist(supabase, user.id, currency)
+        setInWatchlist(true)
+      }
+    } catch {
+      // no-op — button reverts to previous state naturally
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   return (
