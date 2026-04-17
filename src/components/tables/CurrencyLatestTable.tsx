@@ -2,6 +2,7 @@
 "use client";
 
 import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
+import { CMC_COIN_IMAGE_URL } from "@/config/constants";
 import { AbbreviatedNumberFormat, formatPrice, formatVolumeChange } from "@/utils/formatters";
 import {
   ChevronDoubleDownIcon,
@@ -72,7 +73,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
               <td>
                 <div className="flex items-center gap-2">
                   <img
-                    src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${currency.id}.png`}
+                    src={CMC_COIN_IMAGE_URL(currency.id)}
                     alt={currency.name}
                     className="w-6 h-6 rounded-full"
                   />

@@ -14,6 +14,9 @@ export const CURRENCY_SYMBOL_TO_COUNTRY: Record<string, string> = {
   XDR: "",
 };
 
+export const CMC_COIN_IMAGE_URL = (id: number) =>
+  `https://s2.coinmarketcap.com/static/img/coins/64x64/${id}.png`;
+
 export const CURRENCY_TABLE_COLUMNS: { label: string; value: string }[] = [
   { label: "Name", value: "name" },
   { label: "Price", value: "price" },
