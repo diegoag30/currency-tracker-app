@@ -13,10 +13,10 @@ const CurrencyTableSkeleton: React.FC = () => {
         </thead>
         <tbody>
           {Array.from({ length: MAX_ITEMS_PER_PAGE }).map((_, index) => (
-            <tr className="skeleton w-1/3" key={index}>
-              <td className="text-transparent">LOADING </td>
-              <td className="text-transparent">LOADING </td>
-              <td className="text-transparent">LOADING </td>
+            <tr key={index}>
+              <td><div className="skeleton h-4 w-24" /></td>
+              <td><div className="skeleton h-4 w-8" /></td>
+              <td><div className="skeleton h-4 w-12" /></td>
             </tr>
           ))}
         </tbody>

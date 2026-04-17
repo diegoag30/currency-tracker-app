@@ -49,7 +49,6 @@ export default function NavLinks() {
         return (
           <li key={link.id}>
             <Link
-              key={link.name}
               href={link.href}
               className={clsx({
                 "btn-active": pathname === link.href,
