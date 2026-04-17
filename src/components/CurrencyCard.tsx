@@ -33,7 +33,7 @@ const CurrencyCard: React.FC<CurrencyCardProps> = ({ metadata = [], isLoading, w
       <div className="flex items-center p-2">
         <div className="avatar mr-4">
           <div className="w-10 rounded-full">
-            <img src={CurrencyMetadata.logo} />
+            <img src={CurrencyMetadata.logo} alt={CurrencyMetadata.name} />
           </div>
         </div>
         <h2 className="card-title">{CurrencyMetadata.name}</h2>
