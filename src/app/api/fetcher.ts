@@ -2,10 +2,16 @@ import { ConversionResult } from "../types/conversionResult";
 import { CurrencyLatestInfo } from "../types/currencyLatestInfo";
 import { GlobalMetrics } from "../types/globalMetrics";
 import { Metadata } from "../types/metadata";
-// Generic fetch and transform function
+import {
+  CMCConversionResponse,
+  CMCGlobalMetricsResponse,
+  CMCListingsResponse,
+  CMCMetaDataResponse,
+} from "../types/api";
+
 export const fetchAndTransformData = async <T>(
   url: string,
-  transform: (data: any) => T
+  transform: (data: unknown) => T
 ): Promise<T> => {
   try {
     const response = await fetch(url);
@@ -23,10 +29,10 @@ export const fetcher = async (url: string): Promise<[]> => {
     throw new Error("Failed to fetch");
   }
   const result = await response.json();
-  return result.data; // Adjust this based on the actual structure of your API response
+  return result.data;
 };
 
-export const transformCurrencyData = (json: any): CurrencyLatestInfo[] => {
+export const transformCurrencyData = (json: CMCListingsResponse): CurrencyLatestInfo[] => {
   const data = json.data;
   return Object.keys(data).map((key) => {
     const item = data[key];
@@ -48,8 +54,7 @@ export const transformCurrencyData = (json: any): CurrencyLatestInfo[] => {
   });
 };
 
-
-export const transformConversionData = (json: any, convertTo: string): ConversionResult => {
+export const transformConversionData = (json: CMCConversionResponse, convertTo: string): ConversionResult => {
   const item = json.data;
   const key = convertTo.toUpperCase();
   return {
@@ -63,9 +68,9 @@ export const transformConversionData = (json: any, convertTo: string): Conversio
   };
 };
 
-export const transformGlobalMetrics = (json: any): GlobalMetrics => {
-  const d = json.data
-  const usd = d.quote.USD
+export const transformGlobalMetrics = (json: CMCGlobalMetricsResponse): GlobalMetrics => {
+  const d = json.data;
+  const usd = d.quote.USD;
   return {
     btc_dominance: d.btc_dominance,
     eth_dominance: d.eth_dominance,
@@ -84,10 +89,10 @@ export const transformGlobalMetrics = (json: any): GlobalMetrics => {
     total_volume_24h_yesterday: usd.total_volume_24h_yesterday,
     total_market_cap_yesterday_percentage_change: usd.total_market_cap_yesterday_percentage_change,
     total_volume_24h_yesterday_percentage_change: usd.total_volume_24h_yesterday_percentage_change,
-  }
-}
+  };
+};
 
-export const transformMetaData = (json: any): Metadata[] => {
+export const transformMetaData = (json: CMCMetaDataResponse): Metadata[] => {
   const data = json.data;
   return Object.keys(data).map((key) => {
     const item = data[key];
