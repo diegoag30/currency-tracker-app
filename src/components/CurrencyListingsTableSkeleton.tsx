@@ -8,7 +8,7 @@ const CurrencyListingsTableSkeleton: React.FC = () => {
           <tr>
             <th></th>
             {CURRENCY_TABLE_COLUMNS.map((col) => (
-              <th key={col.value}>{col.label}</th>
+              <th key={col.value} className="text-center whitespace-normal w-[100px]">{col.label}</th>
             ))}
           </tr>
         </thead>
@@ -17,8 +17,8 @@ const CurrencyListingsTableSkeleton: React.FC = () => {
             <tr key={rowIndex}>
               <td><div className="skeleton h-4 w-6" /></td>
               {CURRENCY_TABLE_COLUMNS.map((col) => (
-                <td key={col.value}>
-                  <div className="skeleton h-4 w-20" />
+                <td key={col.value} className="w-[100px]">
+                  <div className="skeleton h-4 w-16" />
                 </td>
               ))}
             </tr>
