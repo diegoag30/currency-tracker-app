@@ -15,7 +15,7 @@ const StatSkeleton = () => (
 
 export default function Page() {
   const { data, error } = useSWR(
-    '/api/data?subpath=%2Fv1%2Fglobal-metrics%2Fquotes%2Flatest',
+    `/api/data?${new URLSearchParams({ subpath: '/v1/global-metrics/quotes/latest' }).toString()}`,
     (url) => fetchAndTransformData(url, transformGlobalMetrics)
   )
 

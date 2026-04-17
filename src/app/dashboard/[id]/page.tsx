@@ -15,38 +15,14 @@ export default function Page({ params }: { params: { id: string } }) {
   const id = params.id;
   const router = useRouter();
 
-  const MetaDatafetcher = (url: string) =>
-    fetchAndTransformData(url, transformMetaData);
-
-  const MetaDataqueryParams = {
-    subpath: "/v2/cryptocurrency/info",
-    id: id,
-  };
-
-  const MetaDataqueryString = new URLSearchParams(
-    MetaDataqueryParams
-  ).toString();
-
   const { data: metaData, isLoading: metaLoading } = useSWR<Metadata[]>(
-    `/api/data?${MetaDataqueryString}`,
-    MetaDatafetcher
+    `/api/data?${new URLSearchParams({ subpath: '/v2/cryptocurrency/info', id }).toString()}`,
+    (url) => fetchAndTransformData(url, transformMetaData)
   );
 
-  const CurrencyDatafetcher = (url: string) =>
-    fetchAndTransformData(url, transformCurrencyData);
-
-  const CurrencyDataqueryParams = {
-    subpath: "/v1/cryptocurrency/quotes/latest",
-    id: id,
-  };
-
-  const CurrencyDataqueryString = new URLSearchParams(
-    CurrencyDataqueryParams
-  ).toString();
-
   const { data: currencyData, isLoading: statsLoading } = useSWR<CurrencyLatestInfo[]>(
-    `/api/data?${CurrencyDataqueryString}`,
-    CurrencyDatafetcher
+    `/api/data?${new URLSearchParams({ subpath: '/v1/cryptocurrency/quotes/latest', id }).toString()}`,
+    (url) => fetchAndTransformData(url, transformCurrencyData)
   );
 
   const currency = currencyData?.[0]

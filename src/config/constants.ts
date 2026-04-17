@@ -4,6 +4,7 @@ export const DECIMAL_SCALE = 2;
 
 export const THEMES = ["sunset", "night", "retro", "luxury"] as const;
 export type Theme = (typeof THEMES)[number];
+export const DEFAULT_THEME: Theme = THEMES[0];
 
 export const CURRENCY_SYMBOL_TO_COUNTRY: Record<string, string> = {
   EUR: "EU",

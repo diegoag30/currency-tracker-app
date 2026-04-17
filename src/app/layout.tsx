@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import { DEFAULT_THEME } from "@/config/constants";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
@@ -15,14 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="sunset">
+    <html lang="en" data-theme={DEFAULT_THEME}>
       <head>
         {/* Apply saved theme before render to avoid flash */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const theme = localStorage.getItem("theme") || "sunset";
+                const theme = localStorage.getItem("theme") || "${DEFAULT_THEME}";
                 document.documentElement.setAttribute("data-theme", theme);
               } catch {}
             `,

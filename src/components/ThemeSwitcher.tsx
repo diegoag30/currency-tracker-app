@@ -2,10 +2,10 @@
 
 import { PaintBrushIcon } from '@heroicons/react/24/outline'
 import { useEffect, useRef, useState } from 'react'
-import { THEMES, Theme } from '@/config/constants'
+import { THEMES, Theme, DEFAULT_THEME } from '@/config/constants'
 
 export default function ThemeSwitcher() {
-  const [current, setCurrent] = useState<Theme>('sunset')
+  const [current, setCurrent] = useState<Theme>(DEFAULT_THEME)
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLLIElement>(null)
 
