@@ -39,7 +39,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
           <tr>
             <th></th>
             {CURRENCY_TABLE_COLUMNS.map((column) => (
-              <th key={column.value} className="text-center">
+              <th key={column.value} className="text-center whitespace-normal max-w-[100px]">
                 {column.label}
                 {sortOption === column.value && (
                   <>
