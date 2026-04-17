@@ -7,6 +7,5 @@ export function extractSubpathAndQuery(url: URL): {
   copyUrl.searchParams.delete("subpath");
 
   const queryString = copyUrl.searchParams.toString();
-  console.log(subpath, queryString);
   return { subpath, queryString };
 }
