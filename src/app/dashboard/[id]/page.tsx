@@ -8,6 +8,7 @@ import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
 import { Metadata } from "@/app/types/metadata";
 import CurrencyCard from "@/components/CurrencyCard";
 import CurrencyStats from "@/components/CurrencyStats";
+import ErrorAlert from "@/components/ErrorAlert";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
@@ -15,17 +16,19 @@ export default function Page({ params }: { params: { id: string } }) {
   const id = params.id;
   const router = useRouter();
 
-  const { data: metaData, isLoading: metaLoading } = useSWR<Metadata[]>(
+  const { data: metaData, isLoading: metaLoading, error: metaError } = useSWR<Metadata[]>(
     `/api/data?${new URLSearchParams({ subpath: '/v2/cryptocurrency/info', id }).toString()}`,
     (url) => fetchAndTransformData(url, transformMetaData)
   );
 
-  const { data: currencyData, isLoading: statsLoading } = useSWR<CurrencyLatestInfo[]>(
+  const { data: currencyData, isLoading: statsLoading, error: statsError } = useSWR<CurrencyLatestInfo[]>(
     `/api/data?${new URLSearchParams({ subpath: '/v1/cryptocurrency/quotes/latest', id }).toString()}`,
     (url) => fetchAndTransformData(url, transformCurrencyData)
   );
 
   const currency = currencyData?.[0]
+
+  if (metaError || statsError) return <ErrorAlert message="Failed to load currency data." />
 
   return (
     <div className="flex flex-col gap-4">

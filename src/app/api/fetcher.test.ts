@@ -212,6 +212,7 @@ describe('fetchAndTransformData', () => {
 
   it('fetches and applies the transform function', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+      ok: true,
       json: async () => mockCurrencyApiResponse,
     }))
     const result = await fetchAndTransformData('/api/data', transformCurrencyData)

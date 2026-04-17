@@ -10,6 +10,7 @@ import { CurrencyLatestInfo } from "@/app/types/currencyLatestInfo";
 import { Currency } from "@/app/types/currency";
 import { formatDate } from "@/utils/formatters";
 import { NumericFormat } from "react-number-format";
+import ErrorAlert from "@/components/ErrorAlert";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import { MAX_ITEMS_PER_PAGE, DECIMAL_SCALE } from "@/config/constants";
@@ -36,13 +37,13 @@ export default function Page() {
     subpath: "/v1/cryptocurrency/listings/latest",
     limit: MAX_ITEMS_PER_PAGE.toString(),
   });
-  const { data: cryptoOptions } = useSWR<CurrencyLatestInfo[]>(
+  const { data: cryptoOptions, error: cryptoError } = useSWR<CurrencyLatestInfo[]>(
     `/api/data?${cryptoParams.toString()}`,
     (url) => fetchAndTransformData(url, transformCurrencyData)
   );
 
   // Fetch fiat options for "To"
-  const { data: fiatOptions } = useSWR<Currency[]>(
+  const { data: fiatOptions, error: fiatError } = useSWR<Currency[]>(
     `/api/data?subpath=${encodeURIComponent("/v1/fiat/map")}`,
     fetcher
   );
@@ -62,10 +63,10 @@ export default function Page() {
     }
   }, [fiatOptions, convert]);
 
-  const conversionFetcher = (url: string) =>
-    fetchAndTransformData(url, (json) =>
-      transformConversionData(json, submittedConvert)
-    );
+  const conversionFetcher = (url: string) => {
+    const convert = new URL(url, 'http://x').searchParams.get('convert') ?? 'USD'
+    return fetchAndTransformData(url, (json) => transformConversionData(json, convert))
+  }
 
   const { data, error, isLoading } = useSWR<ConversionResult>(
     swrKey,
@@ -86,6 +87,8 @@ export default function Page() {
   }
 
   const optionsReady = !!cryptoOptions && !!fiatOptions;
+
+  if (cryptoError || fiatError) return <ErrorAlert message="Failed to load converter options." />
 
   return (
     <main>
