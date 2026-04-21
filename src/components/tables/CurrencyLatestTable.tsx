@@ -40,7 +40,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
           <tr>
             <th></th>
             {CURRENCY_TABLE_COLUMNS.map((column) => (
-              <th key={column.value} className="text-center whitespace-normal w-[100px]">
+              <th key={column.value} className={`whitespace-normal w-[100px] ${column.value === "name" ? "text-left" : "text-center"}`}>
                 {column.label}
                 {sortOption === column.value && (
                   <>
@@ -58,7 +58,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
         <tbody>
           {sortedCurrencies.map((currency) => (
             <tr
-              className="cursor-pointer hover"
+              className="cursor-pointer hover align-middle"
               key={currency.id}
               onClick={() => router.push(`/dashboard/${currency.id}`)}
             >
@@ -71,8 +71,8 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
                   }}
                 />
               </td>
-              <td className="text-center">
-                <div className="flex items-center justify-center gap-2">
+              <td>
+                <div className="flex items-center gap-2">
                   <Image
                     src={CMC_COIN_IMAGE_URL(currency.id)}
                     alt={currency.name}
