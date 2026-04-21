@@ -5,7 +5,7 @@ import {
 } from "@/app/api/fetcher";
 import SortButton from "@/components/buttons/SortButton";
 import SortOptionButton from "@/components/buttons/SortOptionButton";
-import Search from "@/components/Search";
+import Search from "@/components/search";
 import CurrencyLatestTable from "@/components/tables/CurrencyLatestTable";
 import { MAX_ITEMS_PER_PAGE } from "@/config/constants";
 import CurrencyListingsTableSkeleton from "@/components/CurrencyListingsTableSkeleton";
