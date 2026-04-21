@@ -38,7 +38,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
       <table className="table">
         <thead>
           <tr>
-            <th></th>
+            <th className="w-10"></th>
             {CURRENCY_TABLE_COLUMNS.map((column) => (
               <th key={column.value} className="text-left whitespace-normal w-[100px]">
                 {column.label}
@@ -62,7 +62,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
               key={currency.id}
               onClick={() => router.push(`/dashboard/${currency.id}`)}
             >
-              <td>
+              <td className="w-10">
                 <WatchlistButton
                   currency={{
                     currency_id: currency.id,
