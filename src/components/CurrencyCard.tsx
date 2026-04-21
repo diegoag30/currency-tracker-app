@@ -2,6 +2,7 @@ import { Metadata } from "@/app/types/metadata";
 import WatchlistButton from "@/components/WatchlistButton";
 import { WatchlistItem } from "@/lib/watchlist";
 import { highlightDescription } from "@/utils/formatters";
+import Image from "next/image";
 
 interface CurrencyCardProps {
   metadata?: Metadata[];
@@ -33,7 +34,7 @@ const CurrencyCard: React.FC<CurrencyCardProps> = ({ metadata = [], isLoading, w
       <div className="flex items-center p-2">
         <div className="avatar mr-4">
           <div className="w-10 rounded-full">
-            <img src={CurrencyMetadata.logo} alt={CurrencyMetadata.name} />
+            <Image src={CurrencyMetadata.logo} alt={CurrencyMetadata.name} width={40} height={40} />
           </div>
         </div>
         <h2 className="card-title">{CurrencyMetadata.name}</h2>

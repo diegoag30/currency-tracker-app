@@ -16,7 +16,7 @@ const StatSkeleton = () => (
 export default function Page() {
   const { data, error } = useSWR(
     `/api/data?${new URLSearchParams({ subpath: '/v1/global-metrics/quotes/latest' }).toString()}`,
-    (url) => fetchAndTransformData(url, transformGlobalMetrics)
+    (url: string) => fetchAndTransformData(url, transformGlobalMetrics)
   )
 
   if (error) return <ErrorAlert message="Failed to load global market data." />

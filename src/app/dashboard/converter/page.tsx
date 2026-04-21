@@ -39,7 +39,7 @@ export default function Page() {
   });
   const { data: cryptoOptions, error: cryptoError } = useSWR<CurrencyLatestInfo[]>(
     `/api/data?${cryptoParams.toString()}`,
-    (url) => fetchAndTransformData(url, transformCurrencyData)
+    (url: string) => fetchAndTransformData(url, transformCurrencyData)
   );
 
   // Fetch fiat options for "To"

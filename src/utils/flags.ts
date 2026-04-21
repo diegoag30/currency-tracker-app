@@ -2,7 +2,7 @@ import { CURRENCY_SYMBOL_TO_COUNTRY } from "@/config/constants";
 
 const toFlagEmoji = (countryCode: string): string => {
   if (countryCode.length !== 2) return "";
-  return [...countryCode.toUpperCase()]
+  return Array.from(countryCode.toUpperCase())
     .map((c) => String.fromCodePoint(0x1f1e6 - 65 + c.charCodeAt(0)))
     .join("");
 };

@@ -15,7 +15,6 @@ export default function Search() {
       params.delete("query");
     }
     replace(`${pathname}?${params.toString()}`);
-    // console.log(term);
   }
   return (
     <div className="py-1.5">

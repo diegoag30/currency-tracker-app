@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import React from "react";
+import Image from "next/image";
 import WatchlistButton from "@/components/WatchlistButton";
 import { CURRENCY_TABLE_COLUMNS } from "@/config/constants";
 
@@ -72,10 +73,12 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
               </td>
               <td className="text-center">
                 <div className="flex items-center justify-center gap-2">
-                  <img
+                  <Image
                     src={CMC_COIN_IMAGE_URL(currency.id)}
                     alt={currency.name}
-                    className="w-6 h-6 rounded-full"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
                   />
                   {currency.name}
                 </div>

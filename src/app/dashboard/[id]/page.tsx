@@ -18,12 +18,12 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const { data: metaData, isLoading: metaLoading, error: metaError } = useSWR<Metadata[]>(
     `/api/data?${new URLSearchParams({ subpath: '/v2/cryptocurrency/info', id }).toString()}`,
-    (url) => fetchAndTransformData(url, transformMetaData)
+    (url: string) => fetchAndTransformData(url, transformMetaData)
   );
 
   const { data: currencyData, isLoading: statsLoading, error: statsError } = useSWR<CurrencyLatestInfo[]>(
     `/api/data?${new URLSearchParams({ subpath: '/v1/cryptocurrency/quotes/latest', id }).toString()}`,
-    (url) => fetchAndTransformData(url, transformCurrencyData)
+    (url: string) => fetchAndTransformData(url, transformCurrencyData)
   );
 
   const currency = currencyData?.[0]

@@ -11,7 +11,7 @@ import {
 
 export const fetchAndTransformData = async <T>(
   url: string,
-  transform: (data: unknown) => T
+  transform: (data: any) => T
 ): Promise<T> => {
   try {
     const response = await fetch(url);
