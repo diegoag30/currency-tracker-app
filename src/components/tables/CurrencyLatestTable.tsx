@@ -40,7 +40,7 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
           <tr>
             <th></th>
             {CURRENCY_TABLE_COLUMNS.map((column) => (
-              <th key={column.value} className={`whitespace-normal w-[100px] ${column.value === "name" ? "text-left" : "text-center"}`}>
+              <th key={column.value} className="text-left whitespace-normal w-[100px]">
                 {column.label}
                 {sortOption === column.value && (
                   <>
@@ -83,13 +83,13 @@ const CurrencyLatestTable: React.FC<LatestTableProps> = ({
                   {currency.name}
                 </div>
               </td>
-              <td className="text-center">{formatPrice(currency.price)}</td>
-              <td className="text-center">$&nbsp;{AbbreviatedNumberFormat(currency.volume_24h)}</td>
-              <td className={`text-center ${currency.percent_change_24h < 0 ? "text-error" : "text-success"}`}>
+              <td>{formatPrice(currency.price)}</td>
+              <td>$&nbsp;{AbbreviatedNumberFormat(currency.volume_24h)}</td>
+              <td className={currency.percent_change_24h < 0 ? "text-error" : "text-success"}>
                 {formatVolumeChange(currency.percent_change_24h)}
               </td>
-              <td className="text-center">$&nbsp;{AbbreviatedNumberFormat(currency.market_cap)}</td>
-              <td className="text-center">{AbbreviatedNumberFormat(currency.circulating_supply)}</td>
+              <td>$&nbsp;{AbbreviatedNumberFormat(currency.market_cap)}</td>
+              <td>{AbbreviatedNumberFormat(currency.circulating_supply)}</td>
             </tr>
           ))}
         </tbody>
